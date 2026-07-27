@@ -269,20 +269,23 @@
                     <h2 class="text-3xl font-bold mb-2">צרי קשר</h2>
                     <p class="text-[#d4af37] italic uppercase tracking-widest text-sm">Engineering Art on Your Skin</p>
                 </div>
-                <form class="space-y-6" onsubmit="event.preventDefault(); alert('ההודעה נשלחה בהצלחה! נחזור אלייך בהקדם.');">
+                <form id="contact-form" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <input type="text" placeholder="שם מלא" class="w-full px-4 py-4 rounded text-white text-right" required>
-                        <input type="tel" placeholder="טלפון" class="w-full px-4 py-4 rounded text-white text-right" required>
+                        <input id="cf-name" type="text" placeholder="שם מלא" class="w-full px-4 py-4 rounded text-white text-right" required>
+                        <input id="cf-phone" type="tel" placeholder="טלפון" class="w-full px-4 py-4 rounded text-white text-right" required>
                     </div>
-                    <select class="w-full px-4 py-4 rounded text-white text-right">
+                    <select id="cf-service" class="w-full px-4 py-4 rounded text-white text-right">
                         <option>קעקוע בעיצוב אישי</option>
                         <option>איפור קבוע</option>
                         <option>קעקוע רפואי / טשטוש צלקות</option>
                         <option>הסרת לייזר (קעקועים/איפור)</option>
                         <option>קורסים והדרכות באקדמיה</option>
                     </select>
-                    <textarea rows="4" placeholder="ספרי לי קצת על מה שאת מחפשת..." class="w-full px-4 py-4 rounded text-white text-right"></textarea>
-                    <button type="submit" class="w-full bg-[#d4af37] text-black font-bold py-5 rounded hover:bg-yellow-600 transition uppercase tracking-widest text-lg">שלחי פנייה</button>
+                    <textarea id="cf-message" rows="4" placeholder="ספרי לי קצת על מה שאת מחפשת..." class="w-full px-4 py-4 rounded text-white text-right"></textarea>
+                    <button type="submit" class="w-full bg-[#d4af37] text-black font-bold py-5 rounded hover:bg-yellow-600 transition uppercase tracking-widest text-lg flex items-center justify-center gap-3">
+                        <i class="fab fa-whatsapp text-2xl"></i> שליחת פנייה בוואטסאפ
+                    </button>
+                    <p class="text-center text-gray-500 text-xs">הפנייה תיפתח בוואטסאפ עם הפרטים מוכנים לשליחה.</p>
                 </form>
             </div>
         </div>
@@ -295,10 +298,10 @@
                 <img src="IMG_2402.jpg" alt="Pardo Logo" onerror="this.style.display='none'" class="h-24 w-24 mx-auto logo-round border border-[#d4af37]/30 mb-4 bg-[#502030]">
                 <span class="text-2xl font-bold brand-font italic text-white uppercase">PARDO<span class="accent-gold">INK</span>ART</span>
             </div>
-            <p class="text-gray-500 mb-6">שדרות העצמאות, קריית גת | זמינה לתיאום מראש</p>
+            <p class="text-gray-500 mb-6">שדרות העצמאות, קריית גת | זמינה לתיאום מראש | <a href="tel:+972506225490" class="hover:text-[#d4af37] transition">050-622-5490</a></p>
             <div class="flex justify-center gap-8 text-gray-400">
-                <a href="#" class="hover:text-[#d4af37] transition"><i class="fab fa-instagram text-2xl"></i></a>
-                <a href="#" class="hover:text-[#d4af37] transition"><i class="fab fa-whatsapp text-2xl"></i></a>
+                <a href="https://instagram.com/kohpmu" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-[#d4af37] transition"><i class="fab fa-instagram text-2xl"></i></a>
+                <a href="https://wa.me/972506225490" target="_blank" rel="noopener" aria-label="WhatsApp" class="hover:text-[#d4af37] transition"><i class="fab fa-whatsapp text-2xl"></i></a>
             </div>
             <p class="mt-12 text-[10px] text-zinc-700 italic">© 2026 Pardo Ink Art Studio. כל הזכויות שמורות למותג.</p>
         </div>
@@ -309,6 +312,22 @@
         const menu = document.getElementById('mobile-menu');
         btn.addEventListener('click', () => menu.classList.toggle('hidden'));
         menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => menu.classList.add('hidden')));
+
+        // Contact form -> WhatsApp
+        const WHATSAPP_NUMBER = '972506225490';
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('cf-name').value.trim();
+            const phone = document.getElementById('cf-phone').value.trim();
+            const service = document.getElementById('cf-service').value;
+            const message = document.getElementById('cf-message').value.trim();
+            let text = 'שלום, הגעתי דרך האתר של Pardo Ink Art 🖤\n';
+            text += 'שם: ' + name + '\n';
+            text += 'טלפון: ' + phone + '\n';
+            text += 'מעוניינת ב: ' + service;
+            if (message) { text += '\nפרטים: ' + message; }
+            window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text), '_blank');
+        });
     </script>
 </body>
 </html>
