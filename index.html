@@ -151,7 +151,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
                 <div class="relative order-2 lg:order-1">
                     <div class="absolute -inset-3 bg-[var(--sand)]/50 rounded-sm rotate-2"></div>
-                    <img src="images/crab-back.jpg" alt="קעקוע פיין ליין על הגב — פרדו אינק ארט" class="relative rounded-sm shadow-xl w-full object-cover h-[560px] img-soft">
+                    <img src="images/portrait.jpg" alt="כוכבית פרדו — פרדו אינק ארט" class="relative rounded-sm shadow-xl w-full object-cover object-top h-[560px] grayscale">
                 </div>
                 <div class="order-1 lg:order-2 text-right">
                     <p class="accent-mauve text-sm font-semibold tracking-widest mb-2 uppercase">הסיפור שלי</p>
@@ -266,9 +266,13 @@
                 <div class="aspect-square overflow-hidden rounded-lg"><img src="images/elephant.jpg" alt="קעקוע פיל מיקרו ריאליזם" loading="lazy" class="w-full h-full object-cover img-soft"></div>
                 <div class="aspect-square overflow-hidden rounded-lg"><img src="images/rose.jpg" alt="קעקוע פיין ליין עדין על יד" loading="lazy" class="w-full h-full object-cover img-soft"></div>
                 <div class="aspect-square overflow-hidden rounded-lg"><img src="images/phoenix.jpg" alt="קעקוע עוף חול Live Again" loading="lazy" class="w-full h-full object-cover img-soft"></div>
-                <div class="aspect-square overflow-hidden rounded-lg"><img src="images/turtle.jpg" alt="קעקוע צב ים מיקרו ריאליזם" loading="lazy" class="w-full h-full object-cover img-soft"></div>
+                <div class="aspect-square overflow-hidden rounded-lg"><img src="images/like-me.jpg" alt="קעקוע כמוני וכאילו" loading="lazy" class="w-full h-full object-cover img-soft"></div>
                 <div class="aspect-square overflow-hidden rounded-lg"><img src="images/rose-spear.jpg" alt="קעקוע ורד על חנית" loading="lazy" class="w-full h-full object-cover img-soft"></div>
                 <div class="aspect-square overflow-hidden rounded-lg"><img src="images/branches.jpg" alt="קעקוע ענפים ועלים פיין ליין" loading="lazy" class="w-full h-full object-cover img-soft"></div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+                <a href="gallery.html" class="btn-wine px-9 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2"><i class="fas fa-images"></i> לגלריה המלאה</a>
+                <a href="https://www.google.com/maps/place/%D7%A4%D7%A8%D7%93%D7%95+%D7%90%D7%99%D7%A0%D7%A7+%D7%90%D7%A8%D7%98%E2%80%AD/@31.627481,34.765375,17z/data=!4m8!3m7!1s0x40182cd17a58f78b:0xb095787a57873462!8m2!3d31.627481!4d34.765375!9m1!1b1!16s%2Fg%2F11y46xvz7b" target="_blank" rel="noopener" class="btn-outline px-9 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2"><i class="fas fa-star"></i> ביקורות בגוגל</a>
             </div>
         </div>
     </section>
@@ -325,10 +329,17 @@
                 <a href="https://www.youtube.com/@Pardoinkart" target="_blank" rel="noopener" aria-label="YouTube" class="hover:text-white transition"><i class="fab fa-youtube"></i></a>
                 <a href="https://wa.me/972506225490" target="_blank" rel="noopener" aria-label="WhatsApp" class="hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
             </div>
+            <div class="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm mb-4">
+                <a href="gallery.html" class="text-[#e6cfc7] underline hover:text-white">גלריה מלאה</a>
+                <a href="accessibility.html" class="text-[#e6cfc7] underline hover:text-white">הצהרת נגישות</a>
+                <a href="privacy.html" class="text-[#e6cfc7] underline hover:text-white">מדיניות פרטיות</a>
+                <a href="terms.html" class="text-[#e6cfc7] underline hover:text-white">תקנון האתר</a>
+            </div>
             <p class="text-[11px] text-[#d8b9b0]">© 2026 Pardo Ink Art · כל הזכויות שמורות</p>
         </div>
     </footer>
 
+    <script src="a11y.js" defer></script>
     <script>
         const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');

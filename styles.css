@@ -1,0 +1,85 @@
+:root {
+    --bg: #f7f2ea;        /* warm cream */
+    --bg-alt: #efe6d8;    /* deeper cream */
+    --card: #ffffff;
+    --ink: #3d2a2e;       /* deep warm charcoal */
+    --wine: #5e2b3a;      /* bordeaux (brand logo) */
+    --wine-deep: #4a2230;
+    --mauve: #b79891;     /* dusty rose / taupe */
+    --sand: #e4d4aa;      /* warm gold-beige */
+    --muted: #8a7a72;
+}
+html { scroll-behavior: smooth; font-size: 100%; }
+body {
+    font-family: 'Assistant', sans-serif;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-weight: 400;
+}
+h1, h2, h3, .brand-serif { font-family: 'Frank Ruhl Libre', serif; }
+.latin { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.08em; }
+.accent-wine { color: var(--wine); }
+.accent-mauve { color: var(--mauve); }
+.bg-wine { background-color: var(--wine); }
+.bg-cream-alt { background-color: var(--bg-alt); }
+.divider { width: 64px; height: 2px; background: var(--wine); }
+
+.nav-link { position: relative; }
+.nav-link::after {
+    content: ''; position: absolute; width: 0; height: 1.5px;
+    bottom: -2px; right: 0; background-color: var(--wine); transition: width .3s;
+}
+.nav-link:hover::after { width: 100%; }
+
+.btn-wine { background: var(--wine); color: #fdf8f1; transition: all .3s ease; }
+.btn-wine:hover { background: var(--wine-deep); transform: translateY(-2px); }
+.btn-outline { border: 1.5px solid var(--wine); color: var(--wine); transition: all .3s ease; }
+.btn-outline:hover { background: var(--wine); color: #fdf8f1; }
+
+.card {
+    background: var(--card);
+    box-shadow: 0 10px 30px -18px rgba(94,43,58,0.35);
+    transition: all .35s ease;
+    border: 1px solid rgba(183,152,145,0.25);
+}
+.card:hover { transform: translateY(-8px); box-shadow: 0 22px 44px -20px rgba(94,43,58,0.4); }
+
+.tag {
+    background: rgba(228,212,170,0.35);
+    border: 1px solid rgba(94,43,58,0.18);
+    color: var(--wine);
+}
+
+input, textarea, select {
+    background-color: #fff !important;
+    border: 1px solid rgba(183,152,145,0.55) !important;
+    color: var(--ink) !important;
+}
+input::placeholder, textarea::placeholder { color: #b3a49b !important; }
+input:focus, textarea:focus, select:focus {
+    border-color: var(--wine) !important; outline: none;
+    box-shadow: 0 0 0 2px rgba(94,43,58,0.15);
+}
+
+.hero-bg {
+    background:
+      radial-gradient(1200px 500px at 50% -10%, rgba(228,212,170,0.5), transparent 60%),
+      radial-gradient(900px 500px at 80% 120%, rgba(183,152,145,0.35), transparent 60%),
+      var(--bg);
+}
+@keyframes float-soft { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.logo-float { animation: float-soft 6s ease-in-out infinite; }
+
+.img-soft { filter: grayscale(0.15) sepia(0.12) contrast(0.98); transition: filter .6s ease; }
+.img-soft:hover { filter: grayscale(0) sepia(0); }
+
+/* Content / legal pages */
+.content { line-height: 1.9; }
+.content h1 { font-size: 2rem; color: var(--wine); margin-bottom: .5rem; }
+.content h2 { font-size: 1.4rem; color: var(--wine); margin: 2rem 0 .6rem; }
+.content p, .content li { color: var(--ink); font-size: 1.05rem; }
+.content ul { list-style: disc; padding-inline-start: 1.4rem; margin: .5rem 0 1rem; }
+.content a { color: var(--wine); text-decoration: underline; }
+.content strong { color: var(--wine-deep); }
+
+*:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
