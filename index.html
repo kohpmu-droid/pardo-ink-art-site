@@ -3,310 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pardo Ink Art | קליניקת בוטיק לקעקועים, אסתטיקה והדרכה</title>
-    <!-- Favicon using the user's logo -->
+    <title>Pardo Ink Art | קליניקה וסטודיו בוטיק לקעקועים ופירסינג בכרמי גת</title>
+    <meta name="description" content="פרדו אינק ארט — קליניקה וסטודיו בוטיק לקעקועים ופירסינג בכרמי גת. פיין ליין, מיקרו ריאליזם, פירסינג, איפור קבוע, הסרת לייזר והדרכות. דיוק הנדסי, יד אומנותית והבנה עמוקה של העור.">
     <link rel="icon" type="image/png" href="logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
+        :root {
+            --bg: #f7f2ea;        /* warm cream */
+            --bg-alt: #efe6d8;    /* deeper cream */
+            --card: #ffffff;
+            --ink: #3d2a2e;       /* deep warm charcoal */
+            --wine: #5e2b3a;      /* bordeaux (brand logo) */
+            --wine-deep: #4a2230;
+            --mauve: #b79891;     /* dusty rose / taupe */
+            --sand: #e4d4aa;      /* warm gold-beige */
+            --muted: #8a7a72;
+        }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Assistant', sans-serif;
-            background-color: #050505;
-            color: #ffffff;
-            scroll-behavior: smooth;
+            background-color: var(--bg);
+            color: var(--ink);
+            font-weight: 400;
         }
-        h1, h2, h3, .brand-font {
-            font-family: 'Oswald', sans-serif;
-            letter-spacing: 0.05em;
-        }
-        .hero-gradient {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        .service-card {
-            transition: all 0.3s ease;
-            background: linear-gradient(145deg, #111111, #0a0a0a);
-        }
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-bottom: 2px solid #d4af37;
-        }
-        .accent-gold { color: #d4af37; }
-        
-        input, textarea, select {
-            background-color: #1a1a1a !important;
-            border: 1px solid #333 !important;
-            color: white !important;
-        }
-        input:focus, textarea:focus, select:focus {
-            border-color: #d4af37 !important;
-            outline: none;
-            box-shadow: 0 0 0 1px #d4af37;
-        }
+        h1, h2, h3, .brand-serif { font-family: 'Frank Ruhl Libre', serif; }
+        .latin { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.08em; }
+        .accent-wine { color: var(--wine); }
+        .accent-mauve { color: var(--mauve); }
+        .bg-wine { background-color: var(--wine); }
+        .bg-cream-alt { background-color: var(--bg-alt); }
+        .divider { width: 64px; height: 2px; background: var(--wine); }
+
         .nav-link { position: relative; }
         .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            right: 0;
-            background-color: #d4af37;
-            transition: width 0.3s;
+            content: ''; position: absolute; width: 0; height: 1.5px;
+            bottom: -2px; right: 0; background-color: var(--wine); transition: width .3s;
         }
         .nav-link:hover::after { width: 100%; }
 
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        .btn-wine {
+            background: var(--wine); color: #fdf8f1; transition: all .3s ease;
         }
-        .logo-pulse {
-            animation: pulse-gold 3s infinite;
+        .btn-wine:hover { background: var(--wine-deep); transform: translateY(-2px); }
+        .btn-outline {
+            border: 1.5px solid var(--wine); color: var(--wine); transition: all .3s ease;
         }
-        .logo-round {
-            border-radius: 50%;
-            object-fit: cover;
+        .btn-outline:hover { background: var(--wine); color: #fdf8f1; }
+
+        .card {
+            background: var(--card);
+            box-shadow: 0 10px 30px -18px rgba(94,43,58,0.35);
+            transition: all .35s ease;
+            border: 1px solid rgba(183,152,145,0.25);
         }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 22px 44px -20px rgba(94,43,58,0.4); }
+
+        .tag {
+            background: rgba(228,212,170,0.35);
+            border: 1px solid rgba(94,43,58,0.18);
+            color: var(--wine);
+        }
+
+        input, textarea, select {
+            background-color: #fff !important;
+            border: 1px solid rgba(183,152,145,0.55) !important;
+            color: var(--ink) !important;
+        }
+        input::placeholder, textarea::placeholder { color: #b3a49b !important; }
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--wine) !important; outline: none;
+            box-shadow: 0 0 0 2px rgba(94,43,58,0.15);
+        }
+
+        .hero-bg {
+            background:
+              radial-gradient(1200px 500px at 50% -10%, rgba(228,212,170,0.5), transparent 60%),
+              radial-gradient(900px 500px at 80% 120%, rgba(183,152,145,0.35), transparent 60%),
+              var(--bg);
+        }
+        @keyframes float-soft { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        .logo-float { animation: float-soft 6s ease-in-out infinite; }
+
+        .img-soft { filter: grayscale(0.15) sepia(0.12) contrast(0.98); transition: filter .6s ease; }
+        .img-soft:hover { filter: grayscale(0) sepia(0); }
     </style>
 </head>
 <body>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-black/95 backdrop-blur-md border-b border-white/5 shadow-lg">
+    <nav class="fixed w-full z-50 bg-[#f7f2ea]/90 backdrop-blur-md border-b border-[#b79891]/25">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-24">
-                <div class="flex items-center gap-3">
-                    <a href="#" class="block relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-[#d4af37] to-yellow-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-200"></div>
-                        <img src="logo.png" alt="Pardo Ink Art Logo" class="relative h-16 w-16 object-contain">
-                    </a>
-                    <div class="hidden sm:flex flex-col text-right">
-                        <span class="text-2xl font-bold brand-font tracking-tighter italic leading-none text-white uppercase">PARDO<span class="accent-gold">INK</span>ART</span>
-                        <span class="text-[0.65rem] text-gray-400 tracking-[0.2em] mt-1 uppercase">ENGINEERING ART</span>
+            <div class="flex items-center justify-between h-20">
+                <a href="#home" class="flex items-center gap-3">
+                    <img src="logo.png" alt="Pardo Ink Art" class="h-14 w-14 object-contain">
+                    <div class="hidden sm:flex flex-col text-right leading-none">
+                        <span class="text-lg font-bold brand-serif accent-wine">פרדו אינק ארט</span>
+                        <span class="latin text-[0.7rem] text-[var(--muted)] mt-1">PARDO INK ART · כרמי גת</span>
                     </div>
-                </div>
+                </a>
                 <div class="hidden md:block">
-                    <div class="mr-10 flex items-baseline space-x-8 space-x-reverse">
-                        <a href="#home" class="nav-link px-3 py-2 text-sm font-medium hover:text-[#d4af37] transition">בית</a>
-                        <a href="#services" class="nav-link px-3 py-2 text-sm font-medium hover:text-[#d4af37] transition">שירותי הקליניקה</a>
-                        <a href="#academy" class="nav-link px-3 py-2 text-sm font-medium hover:text-[#d4af37] transition text-[#d4af37]">אקדמיה והדרכות</a>
-                        <a href="#about" class="nav-link px-3 py-2 text-sm font-medium hover:text-[#d4af37] transition">הסיפור שלי</a>
-                        <a href="#gallery" class="nav-link px-3 py-2 text-sm font-medium hover:text-[#d4af37] transition">גלריה</a>
-                        <a href="#contact" class="bg-white/10 hover:bg-[#d4af37] hover:text-black px-4 py-2 rounded-full text-sm font-medium transition duration-300 mr-4">צרי קשר</a>
+                    <div class="flex items-baseline gap-8">
+                        <a href="#home" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">בית</a>
+                        <a href="#about" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">הסיפור שלי</a>
+                        <a href="#specialties" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">התמחויות</a>
+                        <a href="#services" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">שירותים</a>
+                        <a href="#gallery" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">גלריה</a>
+                        <a href="#contact" class="btn-wine px-5 py-2 rounded-full text-sm font-semibold">לוואטסאפ שלי</a>
                     </div>
                 </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white p-2">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
+                <button id="mobile-menu-button" class="md:hidden text-[var(--wine)] p-2"><i class="fas fa-bars text-xl"></i></button>
             </div>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-white/10">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-right">
-                <a href="#home" class="block px-3 py-2 text-base font-medium hover:text-[#d4af37]">בית</a>
-                <a href="#services" class="block px-3 py-2 text-base font-medium hover:text-[#d4af37]">שירותים</a>
-                <a href="#academy" class="block px-3 py-2 text-base font-medium text-[#d4af37]">הדרכות</a>
-                <a href="#about" class="block px-3 py-2 text-base font-medium hover:text-[#d4af37]">הסיפור שלי</a>
-                <a href="#contact" class="block px-3 py-2 text-base font-medium hover:text-[#d4af37]">צרי קשר</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#f7f2ea] border-t border-[#b79891]/25">
+            <div class="px-4 py-3 space-y-1 text-right">
+                <a href="#home" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">בית</a>
+                <a href="#about" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">הסיפור שלי</a>
+                <a href="#specialties" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">התמחויות</a>
+                <a href="#services" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">שירותים</a>
+                <a href="#gallery" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">גלריה</a>
+                <a href="#contact" class="block px-2 py-2 text-base font-semibold accent-wine">צרי קשר</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-gradient h-screen flex items-center justify-center text-center px-4 relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-[#050505]"></div>
-        <div class="max-w-4xl relative z-10 pt-20 flex flex-col items-center">
-            
-            <div class="mb-10 relative group">
-                <div class="absolute -inset-2 bg-[#d4af37] rounded-full blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-                <img src="logo.png" alt="Pardo Ink Art Logo" class="relative w-64 h-64 md:w-80 md:h-80 object-contain rounded-full logo-pulse">
-            </div>
-
-            <h2 class="text-[#d4af37] font-bold tracking-widest text-sm md:text-base mb-4 uppercase">דיוק של מהנדסת. נשמה של אמנית.</h2>
-            <h1 class="text-4xl md:text-7xl font-bold mb-6 text-white leading-tight uppercase">
-                PARDO <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] to-yellow-600">INK</span> ART
-            </h1>
-            <p class="text-xl md:text-2xl mb-10 text-gray-300 font-light max-w-2xl mx-auto leading-relaxed">
-                קליניקת בוטיק המתמחה בקעקועים אמנותיים, איפור קבוע בשיטות מתקדמות, קעקועים רפואיים והסרת לייזר מקצועית.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
-                <a href="#contact" class="bg-[#d4af37] text-black font-bold py-4 px-10 rounded-none hover:bg-yellow-600 transition duration-300 text-lg tracking-wide uppercase">קבעי תור לייעוץ</a>
-                <a href="#academy" class="border border-white py-4 px-10 rounded-none hover:bg-white hover:text-black transition duration-300 text-lg tracking-wide uppercase">למתחם ההדרכות</a>
+    <!-- Hero -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center px-4 pt-24 pb-16">
+        <div class="max-w-3xl mx-auto flex flex-col items-center">
+            <img src="logo.png" alt="Pardo Ink Art Logo" class="w-56 h-56 md:w-72 md:h-72 object-contain logo-float mb-8">
+            <p class="latin text-sm md:text-base tracking-[0.25em] text-[var(--mauve)] mb-4 uppercase">Pardo Ink Art</p>
+            <h1 class="text-4xl md:text-6xl font-bold accent-wine mb-5">פרדו אינק ארט</h1>
+            <p class="text-lg md:text-2xl text-[var(--ink)] mb-3 font-medium">קליניקה וסטודיו בוטיק לקעקועים ופירסינג בכרמי גת</p>
+            <p class="text-base md:text-lg text-[var(--muted)] mb-10">דיוק הנדסי &nbsp;·&nbsp; יד אומנותית &nbsp;·&nbsp; הבנה עמוקה של העור</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="https://wa.me/972506225490" target="_blank" rel="noopener" class="btn-wine px-9 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> לוואטסאפ שלי</a>
+                <a href="#specialties" class="btn-outline px-9 py-4 rounded-full text-lg font-semibold">לתחומי ההתמחות</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 bg-[#050505]">
-        <div class="max-w-7xl mx-auto px-4 text-right">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <!-- About -->
+    <section id="about" class="py-24 bg-cream-alt">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
                 <div class="relative order-2 lg:order-1">
-                    <div class="absolute -inset-4 bg-[#d4af37]/20 rounded-sm transform rotate-3"></div>
-                    <img src="https://images.unsplash.com/photo-1590201772211-1335029a738c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="הסיפור של פארדו" class="relative rounded-sm shadow-2xl w-full object-cover h-[600px] grayscale hover:grayscale-0 transition duration-700">
+                    <div class="absolute -inset-3 bg-[var(--sand)]/50 rounded-sm rotate-2"></div>
+                    <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="פרדו אינק ארט — עבודה" class="relative rounded-sm shadow-xl w-full object-cover h-[560px] img-soft">
+                    <p class="text-center text-xs text-[var(--muted)] mt-3">תמונת המחשה — יוחלף בתמונה שלך</p>
                 </div>
-                <div class="order-1 lg:order-2">
-                    <h2 class="text-[#d4af37] text-sm font-bold tracking-widest mb-2 uppercase">הסיפור שלי</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold mb-8 text-white">מהנדסת שהפכה לאמנית גוף</h3>
-                    <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
-                        <p>
-                            לא התחלתי את דרכי עם מכונת קעקועים ביד. במשך 16 שנים בניתי קריירה ענפה כמהנדסת, עם שני תארים מהטכניון ותעודת מודדת מוסמכת. עולם ההנדסה לימד אותי דיוק ברמת המיקרון, תכנון מוקפד והבנה עמוקה של חומרים ותהליכים.
-                        </p>
-                        <p>
-                            היום, אני מביאה את כל הידע הזה אל הקליניקה. כשאני ניגשת לעצב קעקוע, לבצע שחזור פטמה רפואי או להסיר קעקוע בלייזר, אני משלבת את הראייה ההנדסית המדויקת עם היד האמנותית.
-                        </p>
-                        <p>
-                            ב-<strong>Pardo Ink Art</strong>, הסטנדרטים הם לא רק "נקי", אלא סטרילי ומדויק כמו במעבדה. אני מזמינה אותך לחוויה שונה, בטוחה ומקצועית ברמה הגבוהה ביותר.
-                        </p>
+                <div class="order-1 lg:order-2 text-right">
+                    <p class="accent-mauve text-sm font-semibold tracking-widest mb-2 uppercase">הסיפור שלי</p>
+                    <h2 class="text-3xl md:text-4xl font-bold accent-wine mb-6">מהנדסת שחזרה אל האמנות</h2>
+                    <div class="space-y-5 text-[var(--ink)] text-lg leading-relaxed">
+                        <p>אני <strong>כוכבית פרדו</strong>, מקעקעת אומנותית ובעלת קליניקת פרדו אינק ארט בכרמי גת. אני מתמחה בקעקועי <strong>פיין ליין</strong> ו<strong>מיקרו ריאליזם</strong>, בגישה שמבוססת על יסודות מדויקים, תכנון אישי וכבוד אמיתי לעור.</p>
+                        <p>במשך 16 שנים עבדתי כמהנדסת ומודדת מוסמכת, עם שני תארים אקדמיים וקריירה מבוססת בעולם של דיוק, תכנון ומערכות מורכבות — עבודה שדרשה ריכוז גבוה, ירידה לפרטים הקטנים ביותר ואחריות מלאה על כל החלטה.</p>
+                        <p>אבל תמיד הייתה בי משיכה עמוקה לאמנות ולציור — כישרון שקיבלתי בהורשה מאבי. עם הזמן הבנתי שאני רוצה לקחת את הדיוק, השליטה והחשיבה ההנדסית ולשלב אותם בעולם הקעקועים וההדרכה. זו לא הייתה רק החלטה מקצועית — זו הייתה חזרה לחלק בי שתמיד היה שם.</p>
                     </div>
-                    <div class="mt-10 flex items-center gap-8 justify-start">
-                        <div>
-                            <span class="block text-3xl font-bold text-white">16</span>
-                            <span class="text-sm text-[#d4af37]">שנות הנדסה</span>
-                        </div>
-                        <div class="w-px h-12 bg-white/20"></div>
-                        <div>
-                            <span class="block text-3xl font-bold text-white">Technion</span>
-                            <span class="text-sm text-[#d4af37]">Graduate</span>
-                        </div>
+                    <div class="mt-9 flex items-center gap-8">
+                        <div><span class="block text-3xl font-bold accent-wine">16</span><span class="text-sm text-[var(--muted)]">שנות הנדסה</span></div>
+                        <div class="w-px h-12 bg-[var(--mauve)]/40"></div>
+                        <div><span class="block text-3xl font-bold accent-wine">Technion</span><span class="text-sm text-[var(--muted)]">שני תארים</span></div>
+                        <div class="w-px h-12 bg-[var(--mauve)]/40"></div>
+                        <div><span class="block text-3xl font-bold accent-wine">מודדת</span><span class="text-sm text-[var(--muted)]">מוסמכת</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-24 bg-zinc-900/50">
+    <!-- Skin understanding -->
+    <section class="py-24">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p class="accent-mauve text-sm font-semibold tracking-widest mb-2 uppercase">ההבנה העמוקה של העור</p>
+            <h2 class="text-3xl md:text-4xl font-bold accent-wine mb-5">העבודה עם העור היא לא רק אמנות. היא אחריות.</h2>
+            <div class="divider mx-auto mb-10"></div>
+            <p class="text-lg text-[var(--ink)] leading-relaxed mb-10">לאורך השנים פיתחתי הבנה עמוקה של מבנה העור, עומק העבודה הנכון ותהליכי ההחלמה — הדרך ליצור קעקועים שישמרו על איכותם לאורך זמן. כל קעקוע מתוכנן בהתאמה אישית, תוך התחשבות באנטומיה, בתנועה הטבעית של הגוף ובתוצאה לטווח ארוך.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div><i class="fas fa-layer-group accent-wine text-2xl mb-3"></i><p class="font-semibold">מבנה העור</p></div>
+                <div><i class="fas fa-ruler-combined accent-wine text-2xl mb-3"></i><p class="font-semibold">עומק עבודה מדויק</p></div>
+                <div><i class="fas fa-heart-pulse accent-wine text-2xl mb-3"></i><p class="font-semibold">תהליכי החלמה</p></div>
+                <div><i class="fas fa-hourglass-half accent-wine text-2xl mb-3"></i><p class="font-semibold">שמירה לאורך זמן</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialties -->
+    <section id="specialties" class="py-24 bg-cream-alt">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="accent-mauve text-sm font-semibold tracking-widest mb-2 uppercase">תחומי התמחות</p>
+            <h2 class="text-3xl md:text-4xl font-bold accent-wine mb-5">מינימליסטי. נקי. מדויק.</h2>
+            <div class="divider mx-auto mb-12"></div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="tag px-6 py-3 rounded-full text-base font-semibold">קעקועי פיין ליין</span>
+                <span class="tag px-6 py-3 rounded-full text-base font-semibold">מיקרו ריאליזם</span>
+                <span class="tag px-6 py-3 rounded-full text-base font-semibold">יד חופשית והסוואת פגמים</span>
+                <span class="tag px-6 py-3 rounded-full text-base font-semibold">קעקועים עדינים ומדויקים</span>
+                <span class="tag px-6 py-3 rounded-full text-base font-semibold">עיצוב אישי בהתאמה מלאה</span>
+                <span class="tag px-6 py-3 rounded-full text-base font-semibold">קעקועים עם משמעות אישית</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-24">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4">התמחויות הקליניקה</h2>
-            <div class="h-1 w-24 bg-[#d4af37] mx-auto mb-16"></div>
+            <p class="accent-mauve text-sm font-semibold tracking-widest mb-2 uppercase">שירותים בקליניקה</p>
+            <h2 class="text-3xl md:text-4xl font-bold accent-wine mb-5">מה אפשר לעשות אצלי</h2>
+            <div class="divider mx-auto mb-14"></div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- קעקועים -->
-                <div class="service-card p-8 rounded-lg border border-white/5">
-                    <div class="text-[#d4af37] text-4xl mb-6"><i class="fas fa-pen-fancy"></i></div>
-                    <h3 class="text-xl font-bold mb-4">קעקועים בעיצוב אישי</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">עיצובים מקוריים המותאמים אישית לסיפור ולמבנה הגוף שלך, בדיוק של מהנדסת.</p>
-                </div>
-                <!-- איפור קבוע -->
-                <div class="service-card p-8 rounded-lg border border-white/5">
-                    <div class="text-[#d4af37] text-4xl mb-6"><i class="fas fa-magic"></i></div>
-                    <h3 class="text-xl font-bold mb-4">איפור קבוע (PMU)</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">הדגשת תווי פנים בשיטות מתקדמות למראה טבעי ומושלם במינימום טראומה לעור.</p>
-                </div>
-                <!-- קעקוע רפואי -->
-                <div class="service-card p-8 rounded-lg border border-white/5">
-                    <div class="text-[#d4af37] text-4xl mb-6"><i class="fas fa-hand-holding-medical"></i></div>
-                    <h3 class="text-xl font-bold mb-4">קעקועים רפואיים</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">טשטוש צלקות ושחזורים אסתטיים (Medical Tattooing) באמצעות התאמת פיגמנט מדויקת לצבע העור.</p>
-                </div>
-                <!-- הסרת לייזר -->
-                <div class="service-card p-8 rounded-lg border border-white/5">
-                    <div class="text-[#d4af37] text-4xl mb-6"><i class="fas fa-bolt"></i></div>
-                    <h3 class="text-xl font-bold mb-4">הסרת קעקועים ואיפור בלייזר</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">טכנולוגיית לייזר מתקדמת להסרת קעקועים ואיפור קבוע לא רצוי בצורה בטוחה, יעילה ומקצועית.</p>
+            <!-- Featured: Piercing -->
+            <div class="bg-wine text-[#f7f2ea] rounded-2xl p-8 md:p-10 mb-8 text-right shadow-xl relative overflow-hidden">
+                <span class="absolute top-5 left-5 bg-[var(--sand)] text-[var(--wine-deep)] text-xs font-bold px-3 py-1 rounded-full tracking-wide">חדש & מבוקש</span>
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="text-5xl md:text-6xl text-[var(--sand)] shrink-0"><i class="fas fa-gem"></i></div>
+                    <div class="flex-1">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3">פירסינג מקצועי</h3>
+                        <p class="text-[#f0dcd6] text-lg leading-relaxed">פירסינג נקי, מדויק ובטוח — עם ליווי אישי, תכשיטים איכותיים והקפדה מלאה על סטריליות. מאותו דיוק הנדסי וסטנדרט קליני שמלווה כל עבודה אצלי.</p>
+                    </div>
+                    <a href="https://wa.me/972506225490" target="_blank" rel="noopener" class="shrink-0 bg-[var(--sand)] text-[var(--wine-deep)] font-bold px-8 py-4 rounded-full hover:bg-white transition flex items-center gap-2"><i class="fab fa-whatsapp"></i> לתיאום פירסינג</a>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Academy -->
-    <section id="academy" class="py-24 relative overflow-hidden bg-black text-right">
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-[#d4af37]/5 skew-x-12 transform origin-top"></div>
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2">
-                    <span class="text-[#d4af37] font-bold tracking-widest uppercase mb-2 block">Pardo Academy</span>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6">הדרכות ומאסטר קלאס</h2>
-                    <p class="text-gray-300 mb-8 text-lg leading-relaxed">
-                        כמי שמגיעה מעולמות ההנדסה והמדידה, אני מאמינה שלימוד אמנות הגוף חייב להיות מדויק, שיטתי ומקצועי. אני מזמינה אותך ללמוד את הטכניקות המתקדמות ביותר בתחום.
-                    </p>
-                    <ul class="space-y-4 mb-10">
-                        <li class="flex items-center gap-3 text-gray-300 justify-start"><i class="fas fa-check text-[#d4af37]"></i> קורס יסודות הקעקוע למתחילות</li>
-                        <li class="flex items-center gap-3 text-gray-300 justify-start"><i class="fas fa-check text-[#d4af37]"></i> התמחות בטשטוש צלקות וקעקוע רפואי</li>
-                        <li class="flex items-center gap-3 text-gray-300 justify-start"><i class="fas fa-check text-[#d4af37]"></i> השתלמויות אישיות לשיפור דיוק וטכניקה</li>
-                    </ul>
-                    <a href="#contact" class="bg-[#d4af37] text-black font-bold py-4 px-10 hover:bg-yellow-600 transition tracking-wide uppercase">קבלת פרטים על הקורסים</a>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-right">
+                <div class="card p-8 rounded-xl">
+                    <div class="accent-wine text-3xl mb-5"><i class="fas fa-pen-nib"></i></div>
+                    <h3 class="text-xl font-bold accent-wine mb-3">קעקועים בהתאמה אישית</h3>
+                    <p class="text-[var(--muted)] leading-relaxed">תכנון ועיצוב קעקוע ייחודי, מותאם לגוף ולמשמעות האישית שלך.</p>
                 </div>
-                <div class="lg:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1590422749842-454df7d7301c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-lg shadow-2xl grayscale hover:grayscale-0 transition duration-500">
+                <div class="card p-8 rounded-xl">
+                    <div class="accent-wine text-3xl mb-5"><i class="fas fa-feather-pointed"></i></div>
+                    <h3 class="text-xl font-bold accent-wine mb-3">איפור קבוע</h3>
+                    <p class="text-[var(--muted)] leading-relaxed">עבודה עדינה ומדויקת עם פיגמנטים איכותיים, למראה טבעי.</p>
+                </div>
+                <div class="card p-8 rounded-xl">
+                    <div class="accent-wine text-3xl mb-5"><i class="fas fa-bolt"></i></div>
+                    <h3 class="text-xl font-bold accent-wine mb-3">הסרת קעקועים בלייזר</h3>
+                    <p class="text-[var(--muted)] leading-relaxed">טיפול מקצועי בטכנולוגיה מתקדמת, בצורה בטוחה ויעילה.</p>
+                </div>
+                <div class="card p-8 rounded-xl">
+                    <div class="accent-wine text-3xl mb-5"><i class="fas fa-graduation-cap"></i></div>
+                    <h3 class="text-xl font-bold accent-wine mb-3">הדרכות קעקועים</h3>
+                    <p class="text-[var(--muted)] leading-relaxed">ליווי אישי למתחילות שרוצות ללמוד את התחום בצורה נכונה.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Gallery -->
-    <section id="gallery" class="py-24 bg-black">
+    <section id="gallery" class="py-24 bg-cream-alt">
         <div class="max-w-7xl mx-auto px-4 text-center">
-             <h2 class="text-4xl font-bold mb-12">גלריית עבודות</h2>
-             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="aspect-square bg-zinc-800 overflow-hidden group rounded-lg">
-                    <img src="https://images.unsplash.com/photo-1597933534024-1649360f785e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-100">
-                </div>
-                <div class="aspect-square bg-zinc-800 overflow-hidden group rounded-lg">
-                    <img src="https://images.unsplash.com/photo-1550537687-c91072c4792d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-100">
-                </div>
-                <div class="aspect-square bg-zinc-800 overflow-hidden group rounded-lg">
-                    <img src="https://images.unsplash.com/photo-1590201772211-1335029a738c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-100">
-                </div>
-                <div class="aspect-square bg-zinc-800 overflow-hidden group rounded-lg">
-                    <img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-100">
-                </div>
-             </div>
+            <p class="accent-mauve text-sm font-semibold tracking-widest mb-2 uppercase">גלריה</p>
+            <h2 class="text-3xl md:text-4xl font-bold accent-wine mb-5">מבחר עבודות</h2>
+            <div class="divider mx-auto mb-4"></div>
+            <p class="text-[var(--muted)] mb-12">תמונות המחשה — יוחלפו בתמונות של העבודות שלך</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="aspect-square overflow-hidden rounded-lg"><img src="https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover img-soft"></div>
+                <div class="aspect-square overflow-hidden rounded-lg"><img src="https://images.unsplash.com/photo-1590246814883-57c511e76523?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover img-soft"></div>
+                <div class="aspect-square overflow-hidden rounded-lg"><img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover img-soft"></div>
+                <div class="aspect-square overflow-hidden rounded-lg"><img src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover img-soft"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="py-24">
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <i class="fas fa-quote-right accent-mauve text-3xl mb-6"></i>
+            <h2 class="text-2xl md:text-3xl font-bold accent-wine leading-relaxed mb-6">קעקוע הוא לא רק ציור על העור.<br>זו החלטה אישית, זו חוויה וזו אחריות.</h2>
+            <p class="text-lg text-[var(--ink)] leading-relaxed">המטרה שלי היא ליצור עבורך קעקוע שתהיי גאה בו — גם היום וגם בעוד שנים.</p>
         </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="py-24 bg-zinc-900 text-right">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="bg-black p-8 md:p-12 rounded-xl border border-white/10 shadow-2xl">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold mb-2">צרי קשר</h2>
-                    <p class="text-[#d4af37] italic uppercase tracking-widest text-sm">Engineering Art on Your Skin</p>
+    <section id="contact" class="py-24 bg-cream-alt">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="card p-8 md:p-12 rounded-2xl">
+                <div class="text-center mb-9">
+                    <p class="latin text-sm tracking-[0.2em] text-[var(--mauve)] mb-2">Let's create something meaningful</p>
+                    <h2 class="text-3xl font-bold accent-wine mb-2">✨ זה הזמן לקחת את הצעד הבא ✨</h2>
+                    <p class="text-[var(--muted)]">מלאי פרטים ונדבר בוואטסאפ</p>
                 </div>
-                <form id="contact-form" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <input id="cf-name" type="text" placeholder="שם מלא" class="w-full px-4 py-4 rounded text-white text-right" required>
-                        <input id="cf-phone" type="tel" placeholder="טלפון" class="w-full px-4 py-4 rounded text-white text-right" required>
+                <form id="contact-form" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <input id="cf-name" type="text" placeholder="שם מלא" class="w-full px-4 py-4 rounded-lg text-right" required>
+                        <input id="cf-phone" type="tel" placeholder="טלפון" class="w-full px-4 py-4 rounded-lg text-right" required>
                     </div>
-                    <select id="cf-service" class="w-full px-4 py-4 rounded text-white text-right">
-                        <option>קעקוע בעיצוב אישי</option>
+                    <select id="cf-service" class="w-full px-4 py-4 rounded-lg text-right">
+                        <option>פירסינג</option>
+                        <option>קעקוע בהתאמה אישית</option>
+                        <option>פיין ליין / מיקרו ריאליזם</option>
                         <option>איפור קבוע</option>
-                        <option>קעקוע רפואי / טשטוש צלקות</option>
-                        <option>הסרת לייזר (קעקועים/איפור)</option>
-                        <option>קורסים והדרכות באקדמיה</option>
+                        <option>הסרת קעקועים בלייזר</option>
+                        <option>הדרכות וקורס קעקועים</option>
                     </select>
-                    <textarea id="cf-message" rows="4" placeholder="ספרי לי קצת על מה שאת מחפשת..." class="w-full px-4 py-4 rounded text-white text-right"></textarea>
-                    <button type="submit" class="w-full bg-[#d4af37] text-black font-bold py-5 rounded hover:bg-yellow-600 transition uppercase tracking-widest text-lg flex items-center justify-center gap-3">
-                        <i class="fab fa-whatsapp text-2xl"></i> שליחת פנייה בוואטסאפ
-                    </button>
-                    <p class="text-center text-gray-500 text-xs">הפנייה תיפתח בוואטסאפ עם הפרטים מוכנים לשליחה.</p>
+                    <textarea id="cf-message" rows="4" placeholder="ספרי לי קצת על מה שאת מחפשת..." class="w-full px-4 py-4 rounded-lg text-right"></textarea>
+                    <button type="submit" class="btn-wine w-full py-5 rounded-lg font-bold text-lg flex items-center justify-center gap-3"><i class="fab fa-whatsapp text-2xl"></i> יאללה כוכבית, תחזרי אליי 🖤</button>
+                    <p class="text-center text-[var(--muted)] text-xs">הפנייה תיפתח בוואטסאפ עם הפרטים מוכנים לשליחה.</p>
                 </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-12 border-t border-zinc-900">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="mb-8">
-                <img src="logo.png" alt="Pardo Logo" class="h-28 w-28 mx-auto object-contain mb-4">
-                <span class="text-2xl font-bold brand-font italic text-white uppercase">PARDO<span class="accent-gold">INK</span>ART</span>
+    <footer class="bg-wine py-14 text-center text-[#f3e7e0]">
+        <div class="max-w-7xl mx-auto px-4">
+            <img src="logo.png" alt="Pardo Ink Art" class="h-24 w-24 mx-auto object-contain bg-[#f7f2ea] rounded-full p-2 mb-4">
+            <p class="brand-serif text-xl font-bold mb-1">פרדו אינק ארט</p>
+            <p class="text-sm text-[#e6cfc7] mb-6">קליניקה וסטודיו בוטיק לקעקועים · כרמי גת · בתיאום מראש · <a href="tel:+972506225490" class="underline hover:text-white">050-622-5490</a></p>
+            <div class="flex justify-center gap-7 text-2xl mb-8">
+                <a href="https://instagram.com/kohpmu" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100090161850151" target="_blank" rel="noopener" aria-label="Facebook" class="hover:text-white transition"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/@pardo_ink_art_tattoo" target="_blank" rel="noopener" aria-label="TikTok" class="hover:text-white transition"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/@Pardoinkart" target="_blank" rel="noopener" aria-label="YouTube" class="hover:text-white transition"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/972506225490" target="_blank" rel="noopener" aria-label="WhatsApp" class="hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <p class="text-gray-500 mb-6">שדרות העצמאות, קריית גת | זמינה לתיאום מראש | <a href="tel:+972506225490" class="hover:text-[#d4af37] transition">050-622-5490</a></p>
-            <div class="flex justify-center gap-8 text-gray-400">
-                <a href="https://instagram.com/kohpmu" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-[#d4af37] transition"><i class="fab fa-instagram text-2xl"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=100090161850151" target="_blank" rel="noopener" aria-label="Facebook" class="hover:text-[#d4af37] transition"><i class="fab fa-facebook text-2xl"></i></a>
-                <a href="https://www.tiktok.com/@pardo_ink_art_tattoo" target="_blank" rel="noopener" aria-label="TikTok" class="hover:text-[#d4af37] transition"><i class="fab fa-tiktok text-2xl"></i></a>
-                <a href="https://www.youtube.com/@Pardoinkart" target="_blank" rel="noopener" aria-label="YouTube" class="hover:text-[#d4af37] transition"><i class="fab fa-youtube text-2xl"></i></a>
-                <a href="https://wa.me/972506225490" target="_blank" rel="noopener" aria-label="WhatsApp" class="hover:text-[#d4af37] transition"><i class="fab fa-whatsapp text-2xl"></i></a>
-            </div>
-            <p class="mt-12 text-[10px] text-zinc-700 italic">© 2026 Pardo Ink Art Studio. כל הזכויות שמורות למותג.</p>
+            <p class="text-[11px] text-[#d8b9b0]">© 2026 Pardo Ink Art · כל הזכויות שמורות</p>
         </div>
     </footer>
 
@@ -324,7 +338,7 @@
             const phone = document.getElementById('cf-phone').value.trim();
             const service = document.getElementById('cf-service').value;
             const message = document.getElementById('cf-message').value.trim();
-            let text = 'שלום, הגעתי דרך האתר של Pardo Ink Art 🖤\n';
+            let text = 'שלום כוכבית, הגעתי דרך האתר של Pardo Ink Art 🖤\n';
             text += 'שם: ' + name + '\n';
             text += 'טלפון: ' + phone + '\n';
             text += 'מעוניינת ב: ' + service;
