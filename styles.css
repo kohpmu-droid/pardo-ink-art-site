@@ -77,6 +77,12 @@ input:focus, textarea:focus, select:focus {
 .content { line-height: 1.9; }
 .content h1 { font-size: 2rem; color: var(--wine); margin-bottom: .5rem; }
 .content h2 { font-size: 1.4rem; color: var(--wine); margin: 2rem 0 .6rem; }
+.content h3 { font-size: 1.12rem; color: var(--wine-deep); margin: 1.3rem 0 .4rem; font-family: 'Frank Ruhl Libre', serif; }
+.content table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: .98rem; }
+.content th, .content td { border: 1px solid rgba(183,152,145,.4); padding: .6rem .8rem; text-align: right; }
+.content th { background: rgba(94,43,58,.08); color: var(--wine-deep); font-weight: 700; }
+.content .refs { font-size: .9rem; color: var(--muted); }
+.content .refs li { margin-bottom: .6rem; }
 .content p, .content li { color: var(--ink); font-size: 1.05rem; }
 .content ul { list-style: disc; padding-inline-start: 1.4rem; margin: .5rem 0 1rem; }
 .content a { color: var(--wine); text-decoration: underline; }
