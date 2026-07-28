@@ -81,5 +81,15 @@ input:focus, textarea:focus, select:focus {
 .content ul { list-style: disc; padding-inline-start: 1.4rem; margin: .5rem 0 1rem; }
 .content a { color: var(--wine); text-decoration: underline; }
 .content strong { color: var(--wine-deep); }
+.content blockquote {
+    border-inline-start: 3px solid var(--wine);
+    background: rgba(228,212,170,0.3);
+    padding: 1rem 1.4rem; margin: 1.4rem 0; border-radius: 0 10px 10px 0;
+    font-size: 1.12rem; color: var(--wine-deep);
+}
+.content .eyebrow { color: var(--mauve); font-weight: 600; letter-spacing: .12em; font-size: .85rem; margin-bottom: .3rem; }
+.content .meta { color: var(--muted); font-size: .9rem; margin-bottom: 1.6rem; }
+.article-card { display:block; background:var(--card); border:1px solid rgba(183,152,145,.25); border-radius:14px; padding:1.6rem; transition:all .3s ease; box-shadow:0 10px 30px -18px rgba(94,43,58,.35); }
+.article-card:hover { transform:translateY(-6px); box-shadow:0 20px 40px -20px rgba(94,43,58,.4); }
 
 *:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
