@@ -86,6 +86,8 @@ input:focus, textarea:focus, select:focus {
 .content p, .content li { color: var(--ink); font-size: 1.05rem; }
 .content ul { list-style: disc; padding-inline-start: 1.4rem; margin: .5rem 0 1rem; }
 .content a { color: var(--wine); text-decoration: underline; }
+.content a.btn-wine { color: #fdf8f1 !important; text-decoration: none; }
+.content a.btn-outline { text-decoration: none; }
 .content strong { color: var(--wine-deep); }
 .content blockquote {
     border-inline-start: 3px solid var(--wine);
