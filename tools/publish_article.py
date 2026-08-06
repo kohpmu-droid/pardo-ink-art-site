@@ -281,8 +281,8 @@ def add_card(articles_html, field, slug, title, short):
 
 def main():
     if not TOKEN:
-        print("ERROR: NOTION_TOKEN not set", file=sys.stderr)
-        return 1
+        print("SKIP: NOTION_TOKEN not set yet — configure the GitHub secret to enable publishing")
+        return 0
     # 1. today's field = opposite of last published
     last = query_db("פורסם באתר", by_created=False)
     last_field = prop_select(last[0], "תחום") if last else None
