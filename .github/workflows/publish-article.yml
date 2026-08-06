@@ -17,22 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Jerusalem
-      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Publish next queued article
-        run: |
-          set +e
-          python tools/publish_article.py
-          code=$?
-          set -e
-          echo "exit=$code"
-          if [ "$code" != "0" ] && [ "$code" != "10" ]; then
-            echo "publisher failed"; exit "$code"
-          fi
+        run: python tools/publish_from_queue.py
       - name: Commit if changed
         run: |
           if [ -n "$(git status --porcelain)" ]; then
