@@ -1,0 +1,36 @@
+name: Update blog from YouTube
+
+on:
+  schedule:
+    - cron: "0 7 * * *"   # 07:00 UTC ≈ 10:00 Israel
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-content
+  cancel-in-progress: false
+
+jobs:
+  update-blog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Refresh YouTube section
+        run: python tools/update_blog_youtube.py
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "pardo-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add -A
+            git commit -m "עדכון בלוג: סרטוני יוטיוב אחרונים (אוטומטי)"
+            git push
+            echo "committed"
+          else
+            echo "no changes"
+          fi
