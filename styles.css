@@ -101,3 +101,21 @@ input:focus, textarea:focus, select:focus {
 .article-card:hover { transform:translateY(-6px); box-shadow:0 20px 40px -20px rgba(94,43,58,.4); }
 
 *:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
+
+/* ---------- Mobile polish ---------- */
+body { overflow-x: hidden; }
+img, iframe, video { max-width: 100%; }
+footer a { display: inline-block; }
+
+@media (max-width: 640px) {
+    /* easier-to-tap footer links */
+    footer a { padding: 4px 3px; }
+    /* comfortable article reading on small screens */
+    .content { line-height: 1.8; }
+    .content h1 { font-size: 1.7rem; line-height: 1.3; }
+    .content h2 { font-size: 1.28rem; margin: 1.6rem 0 .5rem; }
+    .content h3 { font-size: 1.08rem; }
+    .content p, .content li { font-size: 1.02rem; }
+    .content blockquote { padding: .9rem 1.1rem; font-size: 1.05rem; }
+    .article-card { padding: 1.25rem; }
+}
