@@ -85,6 +85,29 @@ def render(d, body_html):
         gallery_he="גלריית פירסינג" if piercing else "גלריית קעקועים",
     )
 
+CAT_HEADINGS = {"cat-tattoo": "קעקועים", "cat-piercing": "פירסינג"}
+
+
+def refresh_counts(ah):
+    """סופר את הכרטיסיות בפועל בכל קטגוריה ומעדכן את המונה בכותרת.
+    ספירה מחדש ולא הגדלה — כך שגם אם ריצה אחת נכשלה, הבאה מתקנת."""
+    for cat, heading in CAT_HEADINGS.items():
+        m = re.search(r'id="%s"' % cat, ah)
+        if not m:
+            continue
+        seg = ah[m.end():]
+        nxt = re.search(r'id="cat-', seg)
+        if nxt:
+            seg = seg[:nxt.start()]
+        n = len(re.findall(r'class="article-card"', seg))
+        pat = re.compile(r'(' + re.escape(heading) + r'</h2>\s*<p class="[^"]*">)(\d+)( מאמרים)')
+        if pat.search(ah):
+            ah = pat.sub(lambda mm: mm.group(1) + str(n) + mm.group(3), ah, count=1)
+        else:
+            print("counter not found for %s" % cat, file=sys.stderr)
+    return ah
+
+
 def add_card(ah, field, slug, title, short):
     cat = "cat-piercing" if field == "פירסינג" else "cat-tattoo"
     latin = "PIERCING" if field == "פירסינג" else "TATTOO"
@@ -105,13 +128,7 @@ def add_card(ah, field, slug, title, short):
         raise RuntimeError("grid not found for " + cat)
     pos = m.end() + gm.end()
     ah = ah[:pos] + "\n" + card + ah[pos:]
-    tm = re.search(r"toggleCat\('%s'" % cat, ah)
-    if tm:
-        seg = ah[tm.end():tm.end() + 600]
-        cm = re.search(r"(\d+) מאמרים", seg)
-        if cm:
-            seg2 = seg[:cm.start()] + ("%d מאמרים" % (int(cm.group(1)) + 1)) + seg[cm.end():]
-            ah = ah[:tm.end()] + seg2 + ah[tm.end() + 600:]
+    ah = refresh_counts(ah)
     return ah
 
 def _now():
