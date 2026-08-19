@@ -1,8 +1,8 @@
-name: Publish daily article
+name: Publish queued article
 
 on:
   schedule:
-    - cron: "0 6 * * *"   # 06:00 UTC ≈ 09:00 Israel
+    - cron: "5 */2 * * *"   # כל שעתיים; הסקריפט מחליט אם הגיע הזמן (12–24 שעות אקראי)
   workflow_dispatch: {}
 
 permissions:

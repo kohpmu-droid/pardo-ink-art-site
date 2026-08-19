@@ -4,9 +4,11 @@ Reads pre-exported content from content/meta/*.json + content/bodies/<slug>,
 picks the earliest-dated article that is not yet live (its <slug> file does not
 exist in the repo root), renders the full page, and adds a card to articles.html.
 Runs in GitHub Actions. Exit 0 always (commit decided by git status)."""
-import glob, json, html, datetime, pathlib, re, sys
+import glob, json, html, datetime, pathlib, re, sys, random
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+STATE = ROOT / "content" / ".publish_state.json"
+MIN_HOURS, MAX_HOURS = 12.0, 24.0
 
 TATTOO_KW = "קעקועים בכרמי גת, קעקועים בקריית גת, קעקועים בדרום, מקעקעת בקריית גת, קעקועי פיין ליין, מיקרו ריאליזם, פרדו אינק ארט"
 PIERCE_KW = "פירסינג בכרמי גת, פירסינג בקריית גת, פירסינג בדרום, פירסר בקריית גת, עיצובי אוזניים, פירסינג ילדים, פרדו אינק ארט"
@@ -112,7 +114,44 @@ def add_card(ah, field, slug, title, short):
             ah = ah[:tm.end()] + seg2 + ah[tm.end() + 600:]
     return ah
 
+def _now():
+    return datetime.datetime.now(datetime.timezone.utc)
+
+
+def is_due():
+    """True אם עבר המרווח האקראי שנבחר בפרסום הקודם."""
+    if not STATE.exists():
+        return True, "אין מצב קודם"
+    try:
+        st = json.loads(STATE.read_text(encoding="utf-8"))
+        last = datetime.datetime.fromisoformat(st["last_published"])
+        wait = float(st["next_interval_hours"])
+    except Exception as e:
+        print("state unreadable (%s)" % e, file=sys.stderr)
+        return True, "קובץ מצב לא תקין"
+    if last.tzinfo is None:
+        last = last.replace(tzinfo=datetime.timezone.utc)
+    elapsed = (_now() - last).total_seconds() / 3600.0
+    return (elapsed >= wait), "עברו %.1f מתוך %.1f שעות" % (elapsed, wait)
+
+
+def save_state():
+    nxt = random.uniform(MIN_HOURS, MAX_HOURS)
+    STATE.parent.mkdir(parents=True, exist_ok=True)
+    STATE.write_text(json.dumps({
+        "last_published": _now().isoformat(),
+        "next_interval_hours": round(nxt, 2),
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
+    print("המאמר הבא בעוד %.1f שעות" % nxt)
+
+
 def main():
+    due, why = is_due()
+    print("בדיקת זמן: " + why)
+    if not due:
+        print("NO CHANGE: not due yet")
+        return 0
+
     metas = []
     for p in glob.glob(str(ROOT / "content" / "meta" / "*.json")):
         try:
@@ -138,6 +177,7 @@ def main():
     slug = d["slug"]
     body_html = (ROOT / "content" / "bodies" / slug).read_text(encoding="utf-8").rstrip("\n")
     (ROOT / slug).write_text(render(d, body_html), encoding="utf-8")
+    save_state()
     ah = (ROOT / "articles.html").read_text(encoding="utf-8")
     ah = add_card(ah, d["field"], slug, d["title"], d["short"])
     (ROOT / "articles.html").write_text(ah, encoding="utf-8")
