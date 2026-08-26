@@ -23,7 +23,9 @@ TEMPLATE = """<!DOCTYPE html>
     <title>{title} | Pardo Ink Art</title>
     <meta name="description" content="{meta}">
     <meta name="keywords" content="{keywords}">
+    <link rel="canonical" href="https://pardoinkart.com/{canonical}">
     <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <script src="pixel.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,6 +64,7 @@ TEMPLATE = """<!DOCTYPE html>
                 <a href="accessibility.html" class="text-[#d8b9b0] underline hover:text-white">הצהרת נגישות</a>
                 <a href="terms.html" class="text-[#d8b9b0] underline hover:text-white">תקנון האתר</a>
             </div>
+            <p class="text-[11px] text-[#d8b9b0]">פרדו אינק ארט (Pardo Ink Art) · שדרות אבני החושן 1, קרית גת · 050-622-5490</p>
             <p class="text-[11px] text-[#d8b9b0]">© 2026 Pardo Ink Art · כל הזכויות שמורות</p>
         </div>
     </footer>
@@ -70,9 +73,10 @@ TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-def render(d, body_html):
+def render(d, body_html, slug):
     piercing = (d["field"] == "פירסינג")
     return TEMPLATE.format(
+        canonical=slug,
         title=html.escape(d["title"]),
         meta=html.escape(d["meta"]),
         keywords=PIERCE_KW if piercing else TATTOO_KW,
@@ -193,7 +197,7 @@ def main():
     d = cands[0]
     slug = d["slug"]
     body_html = (ROOT / "content" / "bodies" / slug).read_text(encoding="utf-8").rstrip("\n")
-    (ROOT / slug).write_text(render(d, body_html), encoding="utf-8")
+    (ROOT / slug).write_text(render(d, body_html, slug), encoding="utf-8")
     save_state()
     ah = (ROOT / "articles.html").read_text(encoding="utf-8")
     ah = add_card(ah, d["field"], slug, d["title"], d["short"])
