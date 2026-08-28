@@ -68,13 +68,67 @@
     <script src="a11y.js" defer></script>
     <script>
         (function () {
-            var n = 44, g = document.getElementById('grid');
-            for (var i = 1; i <= n; i++) {
-                var s = ('0' + i).slice(-2);
+            /* AUTO-GALLERY-START */
+            var images = [
+                ["g01", ""],
+                ["g02", ""],
+                ["g03", ""],
+                ["g04", ""],
+                ["g05", ""],
+                ["g06", ""],
+                ["g07", ""],
+                ["g08", ""],
+                ["g09", ""],
+                ["g10", ""],
+                ["g11", ""],
+                ["g12", ""],
+                ["g13", ""],
+                ["g14", ""],
+                ["g15", ""],
+                ["g16", ""],
+                ["g17", ""],
+                ["g18", ""],
+                ["g19", ""],
+                ["g20", ""],
+                ["g21", ""],
+                ["g22", ""],
+                ["g23", ""],
+                ["g24", ""],
+                ["g25", ""],
+                ["g26", ""],
+                ["g27", ""],
+                ["g28", ""],
+                ["g29", ""],
+                ["g30", ""],
+                ["g31", ""],
+                ["g32", ""],
+                ["g33", ""],
+                ["g34", ""],
+                ["g35", ""],
+                ["g36", ""],
+                ["g37", ""],
+                ["g38", ""],
+                ["g39", ""],
+                ["g40", ""],
+                ["g41", ""],
+                ["g42", ""],
+                ["g43", ""],
+                ["g44", ""]
+            ];
+            /* AUTO-GALLERY-END */
+            var dir = 'images/gallery/', fallback = 'עבודת קעקוע פרדו אינק ארט';
+            var g = document.getElementById('grid');
+            if (!images.length) {
                 g.insertAdjacentHTML('beforeend',
-                    '<a href="images/gallery/g' + s + '.jpg" target="_blank" rel="noopener" class="aspect-square overflow-hidden rounded-lg block">' +
-                    '<img src="images/gallery/g' + s + '.jpg" loading="lazy" alt="עבודת קעקוע פרדו אינק ארט" class="w-full h-full object-cover img-soft"></a>');
+                    '<p class="col-span-full text-[var(--muted)] py-10">התמונות בדרך — בינתיים אפשר לראות עבודות באינסטגרם.</p>');
+                return;
             }
+            images.forEach(function (item) {
+                var src = dir + item[0] + '.jpg', alt = item[1] || fallback;
+                g.insertAdjacentHTML('beforeend',
+                    '<a href="' + src + '" target="_blank" rel="noopener" class="aspect-square overflow-hidden rounded-lg block">' +
+                    '<img src="' + src + '" loading="lazy" alt="' + alt + '" class="w-full h-full object-cover img-soft"></a>');
+            });
         })();
     </script>
 </body>

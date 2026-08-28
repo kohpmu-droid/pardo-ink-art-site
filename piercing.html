@@ -113,12 +113,46 @@
     <script src="a11y.js" defer></script>
     <script>
         (function () {
-            var order = ['p24','p23','p14','p15','p16','p17','p18','p20','p19','p02','p07','p10','p11','p21','p06','p03','p08','p04','p05','p12','p13','p01','p09','p22'];
+            /* AUTO-GALLERY-START */
+            var images = [
+                ["p24", ""],
+                ["p23", ""],
+                ["p14", ""],
+                ["p15", ""],
+                ["p16", ""],
+                ["p17", ""],
+                ["p18", ""],
+                ["p20", ""],
+                ["p19", ""],
+                ["p02", ""],
+                ["p07", ""],
+                ["p10", ""],
+                ["p11", ""],
+                ["p21", ""],
+                ["p06", ""],
+                ["p03", ""],
+                ["p08", ""],
+                ["p04", ""],
+                ["p05", ""],
+                ["p12", ""],
+                ["p13", ""],
+                ["p01", ""],
+                ["p09", ""],
+                ["p22", ""]
+            ];
+            /* AUTO-GALLERY-END */
+            var dir = 'images/piercing/', fallback = 'עבודת פירסינג פרדו אינק ארט';
             var g = document.getElementById('grid');
-            order.forEach(function (name) {
+            if (!images.length) {
                 g.insertAdjacentHTML('beforeend',
-                    '<a href="images/piercing/' + name + '.jpg" target="_blank" rel="noopener" class="aspect-square overflow-hidden rounded-lg block">' +
-                    '<img src="images/piercing/' + name + '.jpg" loading="lazy" alt="עבודת פירסינג פרדו אינק ארט" class="w-full h-full object-cover img-soft"></a>');
+                    '<p class="col-span-full text-[var(--muted)] py-10">התמונות בדרך — בינתיים אפשר לראות עבודות באינסטגרם.</p>');
+                return;
+            }
+            images.forEach(function (item) {
+                var src = dir + item[0] + '.jpg', alt = item[1] || fallback;
+                g.insertAdjacentHTML('beforeend',
+                    '<a href="' + src + '" target="_blank" rel="noopener" class="aspect-square overflow-hidden rounded-lg block">' +
+                    '<img src="' + src + '" loading="lazy" alt="' + alt + '" class="w-full h-full object-cover img-soft"></a>');
             });
         })();
     </script>
