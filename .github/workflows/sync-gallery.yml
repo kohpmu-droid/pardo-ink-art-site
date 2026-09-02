@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r tools/requirements.txt
       - name: Sync new images
-        run: python tools/sync_gallery_images.py
+        run: python tools/sync_gallery_images.py | tee "$RUNNER_TEMP/sync.log"
       - name: Open a pull request for review
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,7 +49,16 @@ jobs:
             echo "הבקשה הקיימת עודכנה: $(gh pr list --head "$BRANCH" --state open --json url --jq '.[].url')"
             exit 0
           fi
+          BODY="התמונות ירדו מהדרייב, הוקטנו ונוספו לראש הגלריה. עברו על התמונות — מה שלא מתאים לגלריה, מחקו מהענף לפני המיזוג. אחרי המיזוג הדרייב יתנקה אוטומטית."
+          UNNAMED=$(sed -n 's/^NEEDS-NAME: /- /p' "$RUNNER_TEMP/sync.log" || true)
+          if [ -n "$UNNAMED" ]; then
+            BODY="$BODY
+
+**התמונות האלה עלו בלי תיאור** — השם בדרייב היה שם מצלמה ולא היה ממה לגזור טקסט חלופי. כדאי לתת להן תיאור בעברית בשורת ה-alt שבעמוד:
+
+$UNNAMED"
+          fi
           gh pr create --base main --head "$BRANCH" \
             --title "תמונות חדשות לגלריות" \
-            --body "התמונות ירדו מהדרייב, הוקטנו ונוספו לראש הגלריה. עברו על התמונות — מה שלא מתאים לגלריה, מחקו מהענף לפני המיזוג. אחרי המיזוג הדרייב יתנקה אוטומטית." \
+            --body "$BODY" \
             || echo "פתיחת ה-PR נכשלה. אפשר לפתוח ידנית: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/compare/$BRANCH?expand=1"

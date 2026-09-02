@@ -85,10 +85,27 @@ def write_block(page_text, entries):
                   lambda _: block, page_text, flags=re.S)
 
 
+# שמות שהמצלמה או וואטסאפ נתנו — אין בהם שום מידע על התמונה
+GENERIC_NAME = re.compile(r"""^(
+      \d{6,}                                   # 1000449758
+    | \d{8}[_-]\d{4,6}(\(\d+\))?               # 20260823_122657
+    | (IMG|VID|PXL|DSC|DCIM|PANO|MVIMG|lv)[-_ ].*
+    | (WhatsApp|Screenshot|Snapchat|Facebook|Instagram|image|photo|תמונה)\b.*
+    | [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-.*   # uuid
+)$""", re.I | re.X)
+
+
 def clean_alt(drive_name):
-    """שם הקובץ בדרייב הופך לטקסט חלופי — טוב לנגישות ולגוגל."""
-    alt = re.sub(r"\.(jpe?g|png|heic|heif|webp)$", "", drive_name, flags=re.I)
-    alt = re.sub(r"[_\-]+", " ", alt)
+    """שם הקובץ בדרייב הופך לטקסט חלופי — טוב לנגישות ולגוגל.
+
+    שם גנרי של מצלמה לא מתאר כלום, ו-alt כמו "1000449758" גרוע יותר מאשר כלום:
+    קורא מסך יקריא אותו, וגוגל יראה רעש. במקרה כזה מחזירים מחרוזת ריקה, והעמוד
+    נופל לטקסט ברירת המחדל שלו.
+    """
+    stem = re.sub(r"\.(jpe?g|png|heic|heif|webp)$", "", drive_name, flags=re.I)
+    if GENERIC_NAME.match(stem.strip()):
+        return ""
+    alt = re.sub(r"[_\-]+", " ", stem)
     alt = re.sub(r"\s+", " ", alt).strip()
     return alt[:90]
 
@@ -129,6 +146,10 @@ def sync_category(token, key, cfg, state):
         known[f["id"]] = {"file": name, "title": f["name"], "archived": False}
         added.append([name, alt])
         print("[%s] %s <- %s" % (key, name, f["name"]))
+        if not alt:
+            # מסומן כדי שיופיע ב-PR: תמונה בלי תיאור מפסידה תנועה מגוגל תמונות
+            print("NEEDS-NAME: %s (%s) — שם גנרי בדרייב, אין ממה לגזור תיאור"
+                  % (name, f["name"]))
         index += 1
 
     if not added:
