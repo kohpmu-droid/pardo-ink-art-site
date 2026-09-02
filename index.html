@@ -114,7 +114,18 @@
                         <a href="#about" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">הסיפור שלי</a>
                         <a href="#specialties" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">התמחויות</a>
                         <a href="#services" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">שירותים</a>
-                        <a href="#gallery" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition">גלריה</a>
+                        <div class="relative group">
+                            <button type="button" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false">
+                                גלריה <i class="fas fa-chevron-down text-[0.65rem]"></i>
+                            </button>
+                            <div class="absolute right-0 top-full pt-2 hidden group-hover:block group-focus-within:block">
+                                <div class="bg-[#f7f2ea] border border-[#b79891]/30 rounded-xl shadow-lg py-2 min-w-[13rem]">
+                                    <a href="gallery.html" class="block px-4 py-2 text-sm hover:bg-[#b79891]/15 hover:text-[var(--wine)] transition">גלריית קעקועים</a>
+                                    <a href="piercing.html" class="block px-4 py-2 text-sm hover:bg-[#b79891]/15 hover:text-[var(--wine)] transition">גלריית פירסינג</a>
+                                    <a href="laser.html" class="block px-4 py-2 text-sm hover:bg-[#b79891]/15 hover:text-[var(--wine)] transition">גלריית הסרה בלייזר</a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="relative group">
                             <button type="button" class="nav-link text-sm font-medium hover:text-[var(--wine)] transition inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false">
                                 מחירון <i class="fas fa-chevron-down text-[0.65rem]"></i>
@@ -142,7 +153,10 @@
                 <a href="#about" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">הסיפור שלי</a>
                 <a href="#specialties" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">התמחויות</a>
                 <a href="#services" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">שירותים</a>
-                <a href="#gallery" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]">גלריה</a>
+                <p class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]" style="opacity:.6;pointer-events:none">גלריה</p>
+                <a href="gallery.html" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]" style="padding-right:1.25rem">· קעקועים</a>
+                <a href="piercing.html" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]" style="padding-right:1.25rem">· פירסינג</a>
+                <a href="laser.html" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]" style="padding-right:1.25rem">· הסרה בלייזר</a>
                 <p class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]" style="opacity:.6;pointer-events:none">מחירון</p>
                 <a href="piercing-prices.html" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]" style="padding-right:1.25rem">· פירסינג</a>
                 <a href="tattoo-prices.html" class="block px-2 py-2 text-base font-medium hover:text-[var(--wine)]" style="padding-right:1.25rem">· קעקועים קטנים</a>
@@ -310,8 +324,12 @@
                 <div class="aspect-square overflow-hidden rounded-lg"><img src="images/rose-spear.jpg" alt="קעקוע ורד על חנית" loading="lazy" class="w-full h-full object-cover img-soft"></div>
                 <div class="aspect-square overflow-hidden rounded-lg"><img src="images/branches.jpg" alt="קעקוע ענפים ועלים פיין ליין" loading="lazy" class="w-full h-full object-cover img-soft"></div>
             </div>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-                <a href="gallery.html" class="btn-wine px-9 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2"><i class="fas fa-images"></i> לגלריה המלאה</a>
+            <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center mt-12">
+                <a href="gallery.html" class="btn-wine px-9 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2"><i class="fas fa-images"></i> גלריית קעקועים</a>
+                <a href="piercing.html" class="btn-outline px-9 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2"><i class="fas fa-gem"></i> גלריית פירסינג</a>
+                <a href="laser.html" class="btn-outline px-9 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2"><i class="fas fa-wand-magic-sparkles"></i> גלריית הסרה בלייזר</a>
+            </div>
+            <div class="flex justify-center mt-4">
                 <a href="https://www.google.com/maps/place/%D7%A4%D7%A8%D7%93%D7%95+%D7%90%D7%99%D7%A0%D7%A7+%D7%90%D7%A8%D7%98%E2%80%AD/@31.627481,34.765375,17z/data=!4m8!3m7!1s0x40182cd17a58f78b:0xb095787a57873462!8m2!3d31.627481!4d34.765375!9m1!1b1!16s%2Fg%2F11y46xvz7b" target="_blank" rel="noopener" class="btn-outline px-9 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2"><i class="fas fa-star"></i> ביקורות בגוגל</a>
             </div>
         </div>

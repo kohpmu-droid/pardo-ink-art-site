@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>גלריה מלאה | Pardo Ink Art</title>
-    <meta name="description" content="גלריית העבודות המלאה של פרדו אינק ארט — קעקועי פיין ליין, מיקרו ריאליזם ועוד.">
-    <link rel="canonical" href="https://pardoinkart.com/gallery.html">
+    <title>גלריית הסרת קעקועים בלייזר | Pardo Ink Art</title>
+    <meta name="description" content="תמונות לפני ואחרי מטיפולי הסרת קעקועים בלייזר בקליניקת פרדו אינק ארט בכרמי גת.">
+    <link rel="canonical" href="https://pardoinkart.com/laser.html">
     <link rel="icon" type="image/svg+xml" href="logo.svg">
     <script src="pixel.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,19 +31,19 @@
     <section class="py-16">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <p class="accent-mauve text-sm font-semibold tracking-widest mb-2 uppercase">Pardo Ink Art</p>
-            <h1 class="text-3xl md:text-4xl font-bold accent-wine mb-4">גלריית העבודות המלאה</h1>
+            <h1 class="text-3xl md:text-4xl font-bold accent-wine mb-4">גלריית הסרה בלייזר</h1>
             <div class="divider mx-auto mb-4"></div>
             <!-- מעבר בין הגלריות -->
             <nav aria-label="הגלריות" class="flex flex-wrap justify-center gap-3 mb-8">
-                <span aria-current="page" class="bg-wine text-[#f7efe9] px-5 py-2 rounded-full text-sm font-semibold">גלריית קעקועים</span>
+                <a href="gallery.html" class="btn-outline px-5 py-2 rounded-full text-sm font-semibold">גלריית קעקועים</a>
                 <a href="piercing.html" class="btn-outline px-5 py-2 rounded-full text-sm font-semibold">גלריית פירסינג</a>
-                <a href="laser.html" class="btn-outline px-5 py-2 rounded-full text-sm font-semibold">גלריית הסרה בלייזר</a>
+                <span aria-current="page" class="bg-wine text-[#f7efe9] px-5 py-2 rounded-full text-sm font-semibold">גלריית הסרה בלייזר</span>
             </nav>
-            <p class="text-[var(--muted)] mb-12">מבחר רחב מהעבודות שלי — לחצו על תמונה להגדלה</p>
+            <p class="text-[var(--muted)] mb-12">תוצאות מטיפולי הסרת קעקועים בלייזר — לחצו על תמונה להגדלה</p>
             <div id="grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4"></div>
             <div class="flex flex-col sm:flex-row gap-4 justify-center mt-14">
                 <a href="https://wa.me/972506225490" target="_blank" rel="noopener" class="btn-wine px-9 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> לתיאום תור</a>
-                <a href="index.html#contact" class="btn-outline px-9 py-4 rounded-full text-lg font-semibold">צרי קשר</a>
+                <a href="laser-prices.html" class="btn-outline px-9 py-4 rounded-full text-lg font-semibold">מחירון הסרה בלייזר</a>
             </div>
         </div>
     </section>
@@ -76,54 +76,9 @@
         (function () {
             /* AUTO-GALLERY-START */
             var images = [
-                ["g45", "פלייר פרסום פרדו קעקועים"],
-                ["g01", ""],
-                ["g02", ""],
-                ["g03", ""],
-                ["g04", ""],
-                ["g05", ""],
-                ["g06", ""],
-                ["g07", ""],
-                ["g08", ""],
-                ["g09", ""],
-                ["g10", ""],
-                ["g11", ""],
-                ["g12", ""],
-                ["g13", ""],
-                ["g14", ""],
-                ["g15", ""],
-                ["g16", ""],
-                ["g17", ""],
-                ["g18", ""],
-                ["g19", ""],
-                ["g20", ""],
-                ["g21", ""],
-                ["g22", ""],
-                ["g23", ""],
-                ["g24", ""],
-                ["g25", ""],
-                ["g26", ""],
-                ["g27", ""],
-                ["g28", ""],
-                ["g29", ""],
-                ["g30", ""],
-                ["g31", ""],
-                ["g32", ""],
-                ["g33", ""],
-                ["g34", ""],
-                ["g35", ""],
-                ["g36", ""],
-                ["g37", ""],
-                ["g38", ""],
-                ["g39", ""],
-                ["g40", ""],
-                ["g41", ""],
-                ["g42", ""],
-                ["g43", ""],
-                ["g44", ""]
             ];
             /* AUTO-GALLERY-END */
-            var dir = 'images/gallery/', fallback = 'עבודת קעקוע פרדו אינק ארט';
+            var dir = 'images/laser/', fallback = 'הסרת קעקוע בלייזר — פרדו אינק ארט';
             var g = document.getElementById('grid');
             if (!images.length) {
                 g.insertAdjacentHTML('beforeend',

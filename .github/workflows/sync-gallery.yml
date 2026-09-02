@@ -1,0 +1,55 @@
+name: Sync gallery images from Drive
+
+on:
+  schedule:
+    - cron: "0 3 * * 0"   # כל יום ראשון ב-06:00 שעון ישראל
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: site-content      # לא רץ במקביל לפרסום המאמרים
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Jerusalem
+      GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
+      GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
+      GDRIVE_REFRESH_TOKEN: ${{ secrets.GDRIVE_REFRESH_TOKEN }}
+      BRANCH: gallery-sync
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r tools/requirements.txt
+      - name: Sync new images
+        run: python tools/sync_gallery_images.py
+      - name: Open a pull request for review
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "אין תמונות חדשות — אין מה לפתוח"
+            exit 0
+          fi
+          git config user.name "pardo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add -A
+          git commit -m "תמונות חדשות לגלריות (אוטומטי מהדרייב)"
+          git push --force origin "$BRANCH"
+          if [ -n "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')" ]; then
+            echo "הבקשה הקיימת עודכנה: $(gh pr list --head "$BRANCH" --state open --json url --jq '.[].url')"
+            exit 0
+          fi
+          gh pr create --base main --head "$BRANCH" \
+            --title "תמונות חדשות לגלריות" \
+            --body "התמונות ירדו מהדרייב, הוקטנו ונוספו לראש הגלריה. עברו על התמונות — מה שלא מתאים לגלריה, מחקו מהענף לפני המיזוג. אחרי המיזוג הדרייב יתנקה אוטומטית." \
+            || echo "פתיחת ה-PR נכשלה. אפשר לפתוח ידנית: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/compare/$BRANCH?expand=1"

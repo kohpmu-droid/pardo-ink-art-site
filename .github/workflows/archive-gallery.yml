@@ -1,0 +1,47 @@
+name: Clear published images from Drive
+
+# רץ אחרי שהתמונות באמת נמצאות ב-main, ומעביר אותן בדרייב לתיקיית "פורסם".
+# ההורדה למחשב והמחיקה מהדרייב הן שלב נפרד ומקומי: tools/archive_to_disk.py
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "images/.gallery_state.json"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-content
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Jerusalem
+      GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
+      GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
+      GDRIVE_REFRESH_TOKEN: ${{ secrets.GDRIVE_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r tools/requirements.txt
+      - name: Move published images to the archive folder
+        run: python tools/archive_drive_images.py
+      - name: Commit state if changed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "pardo-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add -A
+            git commit -m "סימון תמונות שפונו מהדרייב (אוטומטי)"
+            git push
+          else
+            echo "אין שינוי במצב"
+          fi
