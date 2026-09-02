@@ -28,6 +28,9 @@ except ImportError:
 
 from gdrive_client import (CATEGORIES, ROOT, access_token, download, list_folder,
                            load_state, save_state)
+from name_images import describe
+
+BRAND = " — פרדו אינק ארט"
 
 MAX_EDGE = 1400  # הצלע הארוכה בפיקסלים — הגלריה מציגה ריבועים קטנים
 JPEG_QUALITY = 82
@@ -137,11 +140,18 @@ def sync_category(token, key, cfg, state):
     for f in new_files:
         name = "%s%02d" % (cfg["prefix"], index)
         try:
-            save_web_jpeg(download(token, f["id"]), images_dir / ("%s.jpg" % name))
+            raw = download(token, f["id"])
+            save_web_jpeg(raw, images_dir / ("%s.jpg" % name))
         except Exception as exc:  # תמונה פגומה לא תפיל את כל הריצה
             print("[%s] דילוג על %s: %s" % (key, f["name"], exc))
             continue
         alt = clean_alt(f["name"])
+        if not alt:
+            # שם מצלמה — מסתכלים בתמונה עצמה במקום להדביק מספר חסר משמעות
+            described = describe(raw, key)
+            if described:
+                alt = described + BRAND
+                print("[%s] %s תיאור: %s" % (key, name, alt))
         # archived=false: התמונה עוד יושבת בתיקייה הראשית בדרייב וממתינה לניקוי
         known[f["id"]] = {"file": name, "title": f["name"], "archived": False}
         added.append([name, alt])
