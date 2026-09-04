@@ -48,7 +48,7 @@ TEMPLATE = """<!DOCTYPE html>
 {body}
         <p class="text-sm mt-6" style="color:var(--muted)">{seo}</p>
 
-        <div class="text-center mt-14"><a href="https://wa.me/972506225490" target="_blank" rel="noopener" class="btn-wine inline-flex items-center gap-2 px-8 py-4 rounded-full text-lg font-semibold"><i class="fab fa-whatsapp"></i> {cta}</a></div>
+        <div class="text-center mt-14"><a href="https://wa.me/972552845920" target="_blank" rel="noopener" class="btn-wine inline-flex items-center gap-2 px-8 py-4 rounded-full text-lg font-semibold"><i class="fab fa-whatsapp"></i> {cta}</a></div>
     </main>
     <footer class="bg-wine py-10 text-center text-[#f3e7e0]">
         <div class="max-w-4xl mx-auto px-4">
