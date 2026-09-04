@@ -97,8 +97,22 @@ python tools/archive_to_disk.py --dry-run  # רק מראה מה היה קורה
 שבדרייב לפח — הפיך 30 יום. קובץ שכבר קיים על הדיסק מזוהה לפי גודל ו-md5 גם אם שמו
 שונה, כך שהוא לא יורד פעמיים.
 
-השלב הזה הוא היחיד שדורש שהמחשב יהיה דלוק. אם לא מריצים אותו — התמונות פשוט
+**רץ אוטומטית**: משימה ב-Windows Task Scheduler בשם `PARDO - gallery backup to F`
+מריצה `tools/archive_task.py` כל יום ב-20:00 דרך `pythonw.exe` — בלי חלון, והפלט
+נכתב ל-`%LOCALAPPDATA%\pardo-gallery-archive.log`. המשימה מוגדרת `StartWhenAvailable`,
+כך שאם המחשב היה כבוי בשעה הזו היא רצה בהזדמנות הראשונה שהוא נדלק, וגם
+`RunOnlyIfNetworkAvailable` כדי לא להיכשל בלי אינטרנט.
+
+השלב הזה הוא היחיד שדורש שהמחשב יהיה דלוק. אם הוא לא נדלק — התמונות פשוט
 ממתינות ב"פורסם", והפרסום לאתר לא נפגע.
+
+לבדוק מתי רצה לאחרונה:
+
+```powershell
+Get-ScheduledTaskInfo -TaskName "PARDO - gallery backup to F"
+```
+
+לבטל את התזמון: `Unregister-ScheduledTask -TaskName "PARDO - gallery backup to F"`
 
 ### מעקב ומצב
 
