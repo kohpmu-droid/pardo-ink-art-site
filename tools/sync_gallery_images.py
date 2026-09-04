@@ -67,20 +67,26 @@ def next_index(images_dir, prefix):
 # ---------- עמוד הגלריה ----------
 
 def read_block(page_text):
-    """רשימת התמונות הקיימת בעמוד, כ-[[שם, alt], ...]."""
+    """רשימת התמונות הקיימת בעמוד, כ-[[שם, alt, רגיש?], ...].
+
+    האיבר השלישי הוא 1 לתמונה שמוצגת מטושטשת מאחורי אזהרה, ואופציונלי —
+    רוב השורות הן זוג. חשוב לשמר אותו, אחרת הסנכרון הבא ימחק את האזהרה.
+    """
     m = re.search(re.escape(BLOCK_START) + r"(.*?)" + re.escape(BLOCK_END),
                   page_text, re.S)
     if not m:
         return None
-    body = m.group(1)
-    pairs = re.findall(r'\[\s*"([^"]+)"\s*,\s*"([^"]*)"\s*\]', body)
-    return [list(p) for p in pairs]
+    found = re.findall(r'\[\s*"([^"]+)"\s*,\s*"([^"]*)"\s*(?:,\s*(\d+)\s*)?\]',
+                       m.group(1))
+    return [[name, alt] + ([int(flag)] if flag else []) for name, alt, flag in found]
 
 
 def write_block(page_text, entries):
     lines = ",\n".join(
-        '                ["%s", "%s"]' % (name, alt.replace('"', "'"))
-        for name, alt in entries
+        '                ["%s", "%s"%s]' % (
+            entry[0], entry[1].replace('"', "'"),
+            ", 1" if len(entry) > 2 and entry[2] else "")
+        for entry in entries
     )
     block = "%s\n            var images = [\n%s\n            ];\n            %s" % (
         BLOCK_START, lines, BLOCK_END)

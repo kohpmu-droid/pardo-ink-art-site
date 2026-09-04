@@ -121,6 +121,10 @@
         (function () {
             /* AUTO-GALLERY-START */
             var images = [
+                ["p54", "פירסינג גבה ונחיר — פרדו אינק ארט"],
+                ["p53", "ביצוע פירסינג אינטימי בקליניקה — פרדו אינק ארט"],
+                ["p52", "ביצוע פירסינג נשי אינטימי מסוג כריסטינה — פרדו אינק ארט", 1],
+                ["p51", "פירסינג נשי אינטימי — פרדו אינק ארט", 1],
                 ["p50", "פירסינג פופיק (טבור) עם עגיל לב, החלמה מהירה — פרדו אינק ארט"],
                 ["p49", "רגע החדרת המחט בפירסינג פופיק — פרדו אינק ארט"],
                 ["p48", "פירסינג פופיק (טבור) עם עגיל לב לנערה — פרדו אינק ארט"],
@@ -180,11 +184,43 @@
                     '<p class="col-span-full text-[var(--muted)] py-10">התמונות בדרך — בינתיים אפשר לראות עבודות באינסטגרם.</p>');
                 return;
             }
+            // האיבר השלישי במערך מסמן תמונה אינטימית: מוצגת מטושטשת מאחורי אזהרה
+            var sensitive = images.some(function (item) { return item[2]; });
+            if (sensitive) {
+                g.insertAdjacentHTML('beforebegin',
+                    '<p class="text-sm text-[var(--muted)] mb-6">חלק מהעבודות הן פירסינג אינטימי. הן מוסתרות מאחורי אזהרה, ונפתחות רק בלחיצה.</p>');
+            }
             images.forEach(function (item) {
                 var src = dir + item[0] + '.jpg', alt = item[1] || fallback;
-                g.insertAdjacentHTML('beforeend',
-                    '<a href="' + src + '" target="_blank" rel="noopener" class="aspect-square overflow-hidden rounded-lg block">' +
-                    '<img src="' + src + '" loading="lazy" alt="' + alt + '" class="w-full h-full object-cover img-soft"></a>');
+                if (!item[2]) {
+                    g.insertAdjacentHTML('beforeend',
+                        '<a href="' + src + '" target="_blank" rel="noopener" class="aspect-square overflow-hidden rounded-lg block">' +
+                        '<img src="' + src + '" loading="lazy" alt="' + alt + '" class="w-full h-full object-cover img-soft"></a>');
+                    return;
+                }
+                var tile = document.createElement('div');
+                tile.className = 'aspect-square overflow-hidden rounded-lg relative';
+                tile.innerHTML =
+                    '<img src="' + src + '" loading="lazy" alt="' + alt + '" class="w-full h-full object-cover img-soft" style="filter:blur(22px);transform:scale(1.15)">' +
+                    '<button type="button" aria-label="הצגת תמונה של ' + alt + '" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center gap-1 px-2 text-center text-[#f7efe9]" style="background:rgba(59,42,42,.72)">' +
+                    '<i class="fas fa-eye-slash text-lg mb-1"></i>' +
+                    '<span class="text-xs sm:text-sm font-semibold">תוכן אינטימי</span>' +
+                    '<span class="text-[11px] sm:text-xs opacity-90">לחצו לצפייה</span></button>';
+                tile.querySelector('button').addEventListener('click', function (ev) {
+                    // בלי עצירה, אותה לחיצה עצמה הייתה ממשיכה לקישור שנוצר כאן
+                    ev.stopPropagation();
+                    var img = tile.querySelector('img');
+                    img.removeAttribute('style');
+                    this.remove();
+                    var link = document.createElement('a');
+                    link.href = src;
+                    link.target = '_blank';
+                    link.rel = 'noopener';
+                    link.className = 'block w-full h-full';
+                    tile.appendChild(link);
+                    link.appendChild(img);
+                });
+                g.appendChild(tile);
             });
         })();
     </script>
