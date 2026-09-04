@@ -1,0 +1,35 @@
+name: Test image naming
+
+# בדיקה ידנית שהמפתח של Anthropic תקין ושהתיאורים יוצאים טוב, בלי לחכות
+# לסנכרון השבועי. עולה בערך סנט. Actions ← Test image naming ← Run workflow.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r tools/requirements.txt
+      - name: Describe two images
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "tools")
+          from name_images import describe, spent
+          for path, category in [("images/piercing/p46.jpg", "piercing"),
+                                 ("images/gallery/g06.jpg", "tattoo")]:
+              alt = describe(open(path, "rb").read(), category)
+              print("%s -> %s" % (path, alt or "(ריק — כתיבת התיאור לא עבדה)"))
+          print(spent())
+          PY
