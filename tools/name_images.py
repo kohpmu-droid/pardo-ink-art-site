@@ -20,6 +20,11 @@ MODEL = "claude-opus-5"
 MAX_EDGE = 800          # מספיק כדי לזהות סוג פירסינג, וחוסך טוקנים
 MAX_ALT_CHARS = 80
 
+# תקרה קשיחה לריצה אחת. באג או לולאה לא יכולים לגלוש מעבר לזה — מה שמעל
+# פשוט עולה בלי תיאור ומסומן ב-PR. אפשר לשנות במשתנה הסביבה NAME_IMAGES_MAX.
+MAX_PER_RUN = int(os.environ.get("NAME_IMAGES_MAX", "40"))
+COST_PER_IMAGE = 0.005  # דולר, הערכה גסה לתמונה מוקטנת + תשובה קצרה
+
 SYSTEM = """אתה כותב טקסט חלופי (alt) בעברית לתמונות באתר של קליניקת קעקועים
 ופירסינג בשם "פרדו אינק ארט".
 
@@ -40,6 +45,7 @@ PROMPT = {
 
 _client = None
 _unavailable = None
+_calls = 0
 
 
 def _get_client():
@@ -74,9 +80,17 @@ def _payload(raw):
 
 def describe(raw, category):
     """תיאור בעברית לתמונה, או מחרוזת ריקה אם לא הסתדר."""
+    global _calls
     client = _get_client()
     if client is None:
         return ""
+    if _calls >= MAX_PER_RUN:
+        if _calls == MAX_PER_RUN:
+            print("הגעתי לתקרה של %d תיאורים בריצה — השאר יעלו בלי תיאור"
+                  % MAX_PER_RUN)
+            _calls += 1
+        return ""
+    _calls += 1
     try:
         response = client.messages.create(
             model=MODEL,
@@ -103,3 +117,12 @@ def describe(raw, category):
     text = " ".join(b.text for b in response.content if b.type == "text").strip()
     text = text.strip('"“”').replace("\n", " ").strip()
     return text[:MAX_ALT_CHARS]
+
+
+def spent():
+    """שורת סיכום לסוף הריצה — כמה קריאות היו וכמה זה עלה בערך."""
+    used = min(_calls, MAX_PER_RUN)
+    if not used:
+        return "לא נשלחה אף תמונה לכתיבת תיאור"
+    return "נשלחו %d תמונות לכתיבת תיאור (עלות משוערת: %.2f דולר)" % (
+        used, used * COST_PER_IMAGE)

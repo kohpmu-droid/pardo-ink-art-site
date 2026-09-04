@@ -1,0 +1,44 @@
+name: Test image naming
+
+# בדיקה ידנית שהמפתח של Anthropic תקין ושהתיאורים יוצאים טוב, בלי לחכות
+# לסנכרון השבועי. Actions ← Test image naming ← Run workflow.
+# אפשר להזין רשימת קבצים מופרדת בפסיקים; ברירת המחדל היא שתי תמונות לדוגמה.
+
+on:
+  workflow_dispatch:
+    inputs:
+      files:
+        description: "נתיבים מופרדים בפסיקים, למשל images/gallery/g06.jpg"
+        required: false
+        default: "images/piercing/p46.jpg,images/gallery/g06.jpg"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      FILES: ${{ inputs.files }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r tools/requirements.txt
+      - name: Describe the images
+        run: |
+          python - <<'PY'
+          import os
+          import sys
+          sys.path.insert(0, "tools")
+          from name_images import describe, spent
+          for path in [p.strip() for p in os.environ["FILES"].split(",") if p.strip()]:
+              category = "tattoo" if "/gallery/" in path else (
+                  "laser" if "/laser/" in path else "piercing")
+              alt = describe(open(path, "rb").read(), category)
+              print("%s -> %s" % (path, alt or "(ריק — כתיבת התיאור לא עבדה)"))
+          print(spent())
+          PY

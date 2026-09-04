@@ -28,7 +28,7 @@ except ImportError:
 
 from gdrive_client import (CATEGORIES, ROOT, access_token, download, list_folder,
                            load_state, save_state)
-from name_images import describe
+from name_images import describe, spent
 
 BRAND = " — פרדו אינק ארט"
 
@@ -179,6 +179,7 @@ def main():
     if total:
         save_state(state)
     print("סה\"כ תמונות שנוספו: %d" % total)
+    print(spent())
 
 
 if __name__ == "__main__":
