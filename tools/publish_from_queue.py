@@ -53,7 +53,7 @@ TEMPLATE = """<!DOCTYPE html>
     <footer class="bg-wine py-10 text-center text-[#f3e7e0]">
         <div class="max-w-4xl mx-auto px-4">
             <p class="brand-serif text-lg font-bold mb-1">פרדו אינק ארט</p>
-            <p class="text-sm text-[#e6cfc7] mb-4">קעקועים ופירסינג בכרמי גת / קריית גת · <a href="tel:+972506225490" class="underline hover:text-white">050-622-5490</a></p>
+            <p class="text-sm text-[#e6cfc7] mb-4">קעקועים ופירסינג בכרמי גת / קריית גת · <a href="tel:+972552845920" class="underline hover:text-white">055-284-5920</a></p>
             <div class="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm mb-3">
                 <a href="index.html" class="text-[#e6cfc7] underline hover:text-white">דף הבית</a>
                 <a href="articles.html" class="text-[#e6cfc7] underline hover:text-white">מאמרים</a>
@@ -64,7 +64,7 @@ TEMPLATE = """<!DOCTYPE html>
                 <a href="accessibility.html" class="text-[#d8b9b0] underline hover:text-white">הצהרת נגישות</a>
                 <a href="terms.html" class="text-[#d8b9b0] underline hover:text-white">תקנון האתר</a>
             </div>
-            <p class="text-[11px] text-[#d8b9b0]">פרדו אינק ארט (Pardo Ink Art) · שדרות אבני החושן 1, קרית גת · 050-622-5490</p>
+            <p class="text-[11px] text-[#d8b9b0]">פרדו אינק ארט (Pardo Ink Art) · שדרות אבני החושן 1, קרית גת · 055-284-5920</p>
             <p class="text-[11px] text-[#d8b9b0]">© 2026 Pardo Ink Art · כל הזכויות שמורות</p>
         </div>
     </footer>
@@ -73,9 +73,14 @@ TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
+# המספר הישן של כוכבית. הוא הופיע בתבנית עוד אחרי שהאתר כולו הוחלף,
+# ומאמר אחד התפרסם איתו. הבדיקה כאן עוצרת מאמר שמכיל אותו במקום לגלות בדיעבד.
+OLD_NUMBERS = ("972506225490", "050-622-5490")
+
+
 def render(d, body_html, slug):
     piercing = (d["field"] == "פירסינג")
-    return TEMPLATE.format(
+    out = TEMPLATE.format(
         canonical=slug,
         title=html.escape(d["title"]),
         meta=html.escape(d["meta"]),
@@ -88,6 +93,10 @@ def render(d, body_html, slug):
         gallery="piercing.html" if piercing else "gallery.html",
         gallery_he="גלריית פירסינג" if piercing else "גלריית קעקועים",
     )
+    for n in OLD_NUMBERS:
+        if n in out:
+            raise SystemExit("המאמר %s מכיל את המספר הישן %s — לא מפרסמים" % (slug, n))
+    return out
 
 CAT_HEADINGS = {"cat-tattoo": "קעקועים", "cat-piercing": "פירסינג"}
 
