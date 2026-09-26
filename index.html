@@ -48,6 +48,17 @@
         }
         .nav-link:hover::after { width: 100%; }
 
+        /* התפריט במובייל יושב בתוך nav קבוע, אז הוא חייב גלילה משלו — אחרת מה שמתחת למסך לא נגיש */
+        #mobile-menu {
+            max-height: calc(100vh - 81px);
+            max-height: calc(100dvh - 81px);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5rem; /* שהפריט האחרון לא יוסתר מתחת לכפתור הנגישות */
+        }
+        body.menu-open { overflow: hidden; }
+
         .btn-wine {
             background: var(--wine); color: #fdf8f1; transition: all .3s ease;
         }
@@ -156,7 +167,7 @@
                         <a href="#contact" class="btn-wine px-5 py-2 rounded-full text-sm font-semibold">לוואטסאפ שלי</a>
                     </div>
                 </div>
-                <button id="mobile-menu-button" class="md:hidden text-[var(--wine)] p-2"><i class="fas fa-bars text-xl"></i></button>
+                <button id="mobile-menu-button" class="md:hidden text-[var(--wine)] p-2" aria-label="תפריט" aria-controls="mobile-menu" aria-expanded="false"><i class="fas fa-bars text-xl"></i></button>
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-[#f7f2ea] border-t border-[#b79891]/25">
@@ -422,8 +433,14 @@
     <script>
         const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
-        menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => menu.classList.add('hidden')));
+        const setMenu = open => {
+            menu.classList.toggle('hidden', !open);
+            document.body.classList.toggle('menu-open', open);
+            btn.setAttribute('aria-expanded', open);
+        };
+        btn.addEventListener('click', () => setMenu(menu.classList.contains('hidden')));
+        menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+        window.addEventListener('resize', () => { if (window.innerWidth >= 768) setMenu(false); });
 
         // Contact form -> WhatsApp
         const WHATSAPP_NUMBER = '972552845920';
