@@ -69,6 +69,7 @@ TEMPLATE = """<!DOCTYPE html>
         </div>
     </footer>
     <script src="a11y.js" defer></script>
+    <script src="share.js" defer></script>
 </body>
 </html>
 """
