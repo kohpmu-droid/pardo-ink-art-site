@@ -5,6 +5,7 @@ picks the earliest-dated article that is not yet live (its <slug> file does not
 exist in the repo root), renders the full page, and adds a card to articles.html.
 Runs in GitHub Actions. Exit 0 always (commit decided by git status)."""
 import glob, json, html, datetime, pathlib, re, sys, random
+import build_sitemap
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 STATE = ROOT / "content" / ".publish_state.json"
@@ -24,6 +25,16 @@ TEMPLATE = """<!DOCTYPE html>
     <meta name="description" content="{meta}">
     <meta name="keywords" content="{keywords}">
     <link rel="canonical" href="https://pardoinkart.com/{canonical}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Pardo Ink Art — פרדו אינק ארט">
+    <meta property="og:locale" content="he_IL">
+    <meta property="og:title" content="{title} | Pardo Ink Art">
+    <meta property="og:description" content="{meta}">
+    <meta property="og:url" content="https://pardoinkart.com/{canonical}">
+    <meta property="og:image" content="https://pardoinkart.com/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="logo.svg">
     <script src="pixel.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -216,4 +227,7 @@ def main():
     return 0
 
 if __name__ == "__main__":
-    sys.exit(main())
+    rc = main()
+    # בכל ריצה, גם כשלא פורסם כלום: כך גם דפים שנוספו ידנית נכנסים למפת האתר
+    print("sitemap: %d pages" % build_sitemap.build())
+    sys.exit(rc)
