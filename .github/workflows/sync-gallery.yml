@@ -31,6 +31,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r tools/requirements.txt
       - name: Sync new images
+        # shell: bash מפעיל pipefail. בלעדיו הכישלון של הסקריפט נבלע ב-tee, והריצה
+        # סומנה "הצליח" שלושה שבועות בזמן שהטוקן של הדרייב פג (13.9–27.9.2026).
+        shell: bash
         run: python tools/sync_gallery_images.py | tee "$RUNNER_TEMP/sync.log"
       - name: Open a pull request for review
         env:
