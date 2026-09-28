@@ -196,6 +196,10 @@ client של פרויקט ה-Google Cloud שמשמש את `GBP_*` ב-`pardo-auto-
 של דרייב יאושר במסך ההסכמה. אם ה-app במצב Testing — הטוקן פג אחרי 7 ימים, ואז צריך
 להעביר אותו ל-Production (או להפיק מחדש כל שבוע).
 
+⚠️ **כך זה נשבר בפועל (13.9–27.9.2026):** ה-app היה ב-Testing, הטוקן פג, וכל סנכרון שבועי
+נכשל ב-`invalid_grant`. הכישלון לא נראה כי הצינור ל-`tee` בלע את קוד היציאה, והריצה
+סומנה "הצליח". תוקן עם `shell: bash` (pipefail) — מעכשיו ריצה כזו נכשלת ו-GitHub שולח מייל.
+
 **פתיחת ה-PR** דורשת שההגדרה Settings ← Actions ← General ←
 "Allow GitHub Actions to create and approve pull requests" תהיה דלוקה. אם היא כבויה,
 הענף עדיין נדחף וה-workflow מדפיס קישור לפתיחה ידנית.
