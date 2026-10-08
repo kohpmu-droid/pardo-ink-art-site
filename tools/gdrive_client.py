@@ -51,6 +51,13 @@ CATEGORIES = {
         "images_dir": "images/laser",
         "page": "laser.html",
     },
+    "pmu": {
+        "folder_id": "1J28pDtKxqr1uuTtSRRT5w6KfAX5DhHxB",
+        "drive_name": "איפור קבוע",
+        "prefix": "m",
+        "images_dir": "images/pmu",
+        "page": "pmu.html",
+    },
 }
 
 IMAGE_MIMES = ("image/jpeg", "image/png", "image/heif", "image/heic", "image/webp")

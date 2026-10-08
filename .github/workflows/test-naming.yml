@@ -37,7 +37,8 @@ jobs:
           from name_images import describe, spent
           for path in [p.strip() for p in os.environ["FILES"].split(",") if p.strip()]:
               category = "tattoo" if "/gallery/" in path else (
-                  "laser" if "/laser/" in path else "piercing")
+                  "laser" if "/laser/" in path else (
+                  "pmu" if "/pmu/" in path else "piercing"))
               alt = describe(open(path, "rb").read(), category)
               print("%s -> %s" % (path, alt or "(ריק — כתיבת התיאור לא עבדה)"))
           print(spent())
