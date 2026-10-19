@@ -1,0 +1,65 @@
+name: Drive media hub
+
+# "🖤 מרכז חומרים" בדרייב ↔ Claude.
+#   pull: מוריד את "1 · סרטונים לעריכה" לענף media/inbox (לעריכה)
+#   push: מעלה קבצים מענף (ברירת מחדל media/outbox) לתיקייה בדרייב
+# לא נוגע ב-main.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "pull / push"
+        required: true
+        default: "pull"
+        type: choice
+        options: [pull, push]
+      folder_id:
+        description: "Drive folder id (pull: מקור · push: יעד)"
+        required: true
+        default: "1dZMcTQjL-x3yN1e3RGhzxGyFJzavKoq_"
+      source:
+        description: "push: branch:path of files to upload (e.g. media/outbox:piercing/oct-2026)"
+        required: false
+        default: ""
+      subpath:
+        description: "push: subfolder path to create under folder_id (e.g. פירסינג/קמפיין אוקטובר 2026)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  media:
+    runs-on: ubuntu-latest
+    env:
+      GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
+      GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
+      GDRIVE_REFRESH_TOKEN: ${{ secrets.GDRIVE_REFRESH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests && sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Pull from Drive
+        if: inputs.mode == 'pull'
+        run: |
+          python tools/drive_media.py pull "${{ inputs.folder_id }}" /tmp/inbox
+          git config user.name "pardo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout --orphan media/inbox
+          git rm -rq --cached . >/dev/null
+          rm -rf inbox && cp -r /tmp/inbox inbox
+          git add inbox
+          git commit -qm "media inbox from Drive" && git push -f origin media/inbox
+      - name: Push to Drive
+        if: inputs.mode == 'push'
+        run: |
+          BR="${{ inputs.source }}"; BR="${BR%%:*}"; P="${{ inputs.source }}"; P="${P#*:}"
+          git fetch -q origin "$BR"
+          mkdir -p /tmp/out && git --work-tree=/tmp/out checkout "origin/$BR" -- "$P"
+          python tools/drive_media.py push "/tmp/out/$P" "${{ inputs.folder_id }}" "${{ inputs.subpath }}"
