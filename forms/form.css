@@ -1,0 +1,122 @@
+/* טפסי הצהרת בריאות דיגיטליים — משותף לכל השירותים.
+   הצבעים והגופנים זהים לאתר (styles.css), כדי שהטופס ירגיש חלק מהמותג. */
+:root {
+  --bg: #f7f2ea;
+  --bg-alt: #efe6d8;
+  --card: #ffffff;
+  --ink: #3d2a2e;
+  --wine: #5e2b3a;
+  --wine-deep: #4a2230;
+  --mauve: #b79891;
+  --muted: #8a7a72;
+  --line: #e2d6cc;
+  --warn-bg: #fbf3e6;
+  --stop-bg: #f6e6e8;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: 'Assistant', Arial, sans-serif; font-size: 17px; line-height: 1.55;
+}
+h1, h2, h3 { font-family: 'Frank Ruhl Libre', 'David', serif; color: var(--wine); margin: 0; text-wrap: balance; }
+a { color: var(--wine); }
+
+.top { background: var(--card); border-bottom: 1px solid var(--line); }
+.top-in { max-width: 760px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+.top img { width: 52px; height: 52px; }
+.top .t1 { font-family: 'Frank Ruhl Libre', serif; font-size: 20px; color: var(--wine); line-height: 1.1; }
+.top .t2 { font-size: 13px; color: var(--muted); }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 80px; display: grid; gap: 18px; }
+.intro h1 { font-size: 28px; margin-bottom: 8px; }
+.intro p { margin: 0 0 6px; color: var(--ink); }
+.intro .small { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 18px; display: grid; gap: 14px; }
+.card > h2 { font-size: 21px; }
+.card > .sub { margin: -8px 0 0; font-size: 14px; color: var(--muted); }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+label.f { display: grid; gap: 4px; font-size: 15px; font-weight: 600; }
+label.f small { font-weight: 400; color: var(--muted); }
+input[type=text], input[type=tel], input[type=email], input[type=date], textarea {
+  font: inherit; font-weight: 400; width: 100%; padding: 11px 12px; border: 1px solid var(--line);
+  border-radius: 10px; background: #fffdfb; color: var(--ink);
+}
+textarea { min-height: 90px; resize: vertical; }
+input:focus, textarea:focus { outline: 2px solid var(--wine); outline-offset: 1px; border-color: var(--wine); }
+.req::after { content: " *"; color: var(--wine); }
+
+/* שאלת כן/לא */
+.q { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; }
+.q:first-of-type { border-top: 0; padding-top: 0; }
+.q .qt { font-weight: 600; }
+.q .qh { font-size: 14px; color: var(--muted); margin-top: -6px; }
+.yn { display: flex; gap: 8px; }
+.yn label { flex: 1; max-width: 140px; }
+.yn input { position: absolute; opacity: 0; pointer-events: none; }
+.yn span {
+  display: block; text-align: center; padding: 9px 0; border: 1px solid var(--line); border-radius: 999px;
+  cursor: pointer; font-weight: 600; background: #fffdfb; user-select: none;
+}
+.yn input:checked + span { background: var(--wine); color: #fff; border-color: var(--wine); }
+.yn input:focus-visible + span { outline: 2px solid var(--wine); outline-offset: 2px; }
+.q .detail[hidden] { display: none; }
+.q.missing .yn span { border-color: #c0392b; }
+
+.pol { font-size: 14px; border-radius: 10px; padding: 8px 12px; }
+.pol[hidden] { display: none; }
+.pol.doc { background: var(--warn-bg); border: 1px solid #e6cfa5; }
+.pol.wait { background: var(--warn-bg); border: 1px dashed #e6cfa5; }
+.pol.stop { background: var(--stop-bg); border: 1px solid #d9a9b1; }
+.pol.note { background: var(--bg-alt); }
+
+/* תיבות סימון מרובות */
+.checks { display: flex; flex-wrap: wrap; gap: 8px; }
+.checks label { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: #fffdfb; cursor: pointer; font-size: 15px; }
+.checks input { accent-color: var(--wine); }
+
+/* סיכום והצהרה */
+.summary { border-radius: 14px; padding: 16px 18px; display: grid; gap: 8px; }
+.summary[hidden] { display: none; }
+.summary.doc { background: var(--warn-bg); border: 1px solid #e6cfa5; }
+.summary.stop { background: var(--stop-bg); border: 1px solid #d9a9b1; }
+.summary h3 { font-size: 18px; }
+.summary ul { margin: 0; padding-inline-start: 20px; }
+
+.decl ol { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; }
+.agree { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
+.agree input { margin-top: 5px; accent-color: var(--wine); width: 18px; height: 18px; flex: none; }
+.agree.missing { color: #c0392b; }
+
+.sig { display: grid; gap: 8px; }
+.sig canvas { width: 100%; height: 180px; border: 1px dashed var(--mauve); border-radius: 12px; background: #fffdfb; touch-action: none; }
+.sig.missing canvas { border-color: #c0392b; }
+.sig .row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--muted); }
+
+.btn { font: inherit; font-weight: 700; border: 0; border-radius: 999px; padding: 14px 22px; cursor: pointer; }
+.btn-main { background: var(--wine); color: #fff; width: 100%; font-size: 18px; }
+.btn-main:disabled { opacity: .6; cursor: wait; }
+.btn-ghost { background: transparent; color: var(--wine); border: 1px solid var(--wine); padding: 6px 14px; font-size: 14px; }
+.btn:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+
+.err { color: #c0392b; font-weight: 600; }
+.err[hidden] { display: none; }
+/* שדה מלכודת לבוטים. מוסתר בלי להזיז אותו מחוץ לעמוד, כי ב-RTL זה יוצר גלילה רוחבית ענקית */
+.hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.photos { display: flex; flex-wrap: wrap; gap: 8px; }
+.photos img { width: 84px; height: 84px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+
+.done { text-align: center; }
+.done h2 { font-size: 26px; }
+.done[hidden] { display: none; }
+.foot { font-size: 13px; color: var(--muted); text-align: center; }
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .intro h1 { font-size: 24px; }
+  .card { padding: 16px 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }

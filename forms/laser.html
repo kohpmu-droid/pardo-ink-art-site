@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>הצהרת בריאות — הסרת קעקוע בלייזר | Pardo Ink Art</title>
+    <link rel="icon" type="image/svg+xml" href="../logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+    <header class="top">
+        <div class="top-in">
+            <img src="../logo.svg" alt="Pardo Ink Art">
+            <div>
+                <div class="t1">Pardo Ink Art</div>
+                <div class="t2">כוכבית פרדו · כרמי גת סנטר, קומה 1 · 055-284-5920</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="wrap">
+        <div class="intro">
+            <h1>הצהרת בריאות לפני הסרת קעקוע בלייזר</h1>
+            <p>העור הוא רקמה חיה. מחלות רקע ותרופות משפיעות על איך שהוא מגיב ללייזר ואיך הוא מחלים. לכן חשוב לענות על הכל, גם על מה שנראה לא קשור.</p>
+            <p class="small">כ-7 דקות. כדאי להכין את רשימת התרופות שלך: שם, חומר פעיל ומינון. המידע נשמר רק בתיק שלך בסטודיו.</p>
+        </div>
+
+        <form id="form" novalidate></form>
+        <section class="card done" id="done" hidden aria-live="polite"></section>
+        <p class="foot">Pardo Ink Art · <a href="../privacy.html">מדיניות פרטיות</a></p>
+    </div>
+
+<script>
+// השאלות מבוססות על הצהרת הבריאות הקיימת להסרה ועל טופס הסינון החדש (אוקטובר 2026).
+// policy: doc = נדרש אישור רופא · stop = לא מטפלים · wait = ייתכן שנדחה · note = שיחה ותיעוד.
+window.PARDO_FORM = {
+  service: "laser",
+  title: "הסרת קעקוע בלייזר",
+  version: "2026-11",
+  doctorLetter: "doctor-letter-laser.html",
+  sections: [
+    { id: "details", type: "fields", title: "פרטים אישיים", fields: [
+      { id: "full_name", label: "שם מלא", required: true, autocomplete: "name" },
+      { id: "id_number", label: "תעודת זהות", required: true, inputmode: "numeric" },
+      { id: "birth", label: "תאריך לידה", type: "date", required: true },
+      { id: "phone", label: "טלפון", type: "tel", required: true, inputmode: "tel", autocomplete: "tel" },
+      { id: "email", label: "אימייל", type: "email", autocomplete: "email" },
+      { id: "city", label: "עיר מגורים" },
+      { id: "area", label: "אזור הקעקוע בגוף", required: true },
+      { id: "tattoo_info", label: "גיל הקעקוע וצבעים", placeholder: "למשל: 6 שנים, שחור ואדום" }
+    ]},
+
+    { id: "general", type: "yesno", title: "מצב כללי", items: [
+      { id: "g_doctor", q: "את/ה כרגע בטיפול או במעקב של רופא, כולל רופא עור?", detail: "אצל מי ובגלל מה", policy: "note" }
+    ]},
+
+    { id: "conditions", type: "yesno", title: "מחלות ומצבי רקע", items: [
+      { id: "c_diabetes", q: "סוכרת", short: "סוכרת", detail: "סוג, האם מאוזנת", policy: "doc" },
+      { id: "c_bleeding", q: "הפרעה בקרישת הדם", short: "הפרעת קרישה", policy: "doc" },
+      { id: "c_heart", q: "מחלת לב או הפרעת קצב", short: "מחלת לב", policy: "doc" },
+      { id: "c_bp", q: "לחץ דם גבוה", short: "לחץ דם גבוה", policy: "note" },
+      { id: "c_autoimmune", q: "מחלה אוטואימונית", hint: "לופוס, סקלרודרמה, דלקת מפרקים שגרונית", short: "מחלה אוטואימונית", policy: "doc" },
+      { id: "c_skin", q: "מחלת עור", hint: "פסוריאזיס, ויטיליגו, אקזמה, סבוריאה", short: "מחלת עור", policy: "doc" },
+      { id: "c_cancer", q: "מחלה אונקולוגית, כימותרפיה או הקרנות, עכשיו או בעבר", short: "מחלה אונקולוגית", policy: "doc" },
+      { id: "c_immuno", q: "דיכוי חיסוני", hint: "השתלת איבר, HIV, תרופות ביולוגיות", short: "דיכוי חיסוני", policy: "doc" },
+      { id: "c_thyroid", q: "בעיה בבלוטת התריס או חוסר איזון הורמונלי", policy: "note" },
+      { id: "c_epilepsy", q: "אפילפסיה", policy: "note" },
+      { id: "c_liver", q: "מחלת כבד או צהבת", policy: "note" },
+      { id: "c_g6pd", q: "חוסר באנזים G6PD (רגישות לפול או לסולפה)", policyText: "חשוב לבחירת משחת ההרדמה. נעבור על זה יחד.", policy: "note" },
+      { id: "c_mole", q: "שומה או נגע חשוד בתוך הקעקוע או לידו", short: "נגע חשוד באזור", policyText: "נדרשת בדיקת רופא עור לפני הטיפול.", policy: "doc" },
+      { id: "c_keloid", q: "נטייה לקלואידים או לצלקות עבות ובולטות", policy: "note" },
+      { id: "c_healing", q: "ריפוי איטי של פצעים", policy: "note" },
+      { id: "c_herpes", q: "הרפס או שלבקת חוגרת חוזרים", policy: "note" },
+      { id: "c_infection", q: "זיהום פעיל, פצע או כוויית שמש באזור הקעקוע", short: "זיהום, פצע או כוויה באזור", policy: "wait" },
+      { id: "c_sun", q: "פריחה או תגובה חריגה לשמש, לחום או לטיפולי עור", hint: "כוויה לא אופיינית, שלפוחיות, כתמים", policy: "note" },
+      { id: "c_gold", q: "קיבלת אי פעם טיפול בזהב (זריקות או עירוי)?", hint: "לרוב לדלקת מפרקים", short: "טיפול בזהב בעבר", policy: "stop",
+        policyText: "טיפול בזהב, גם לפני שנים, עלול לגרום ללייזר להשאיר כתם כחול־אפור קבוע. במקרה כזה לא מבצעים הסרה בלייזר." }
+    ]},
+
+    { id: "allergies", type: "checks", title: "אלרגיות", short: "אלרגיה",
+      sub: "סמן/י כל מה שהייתה לך אליו תגובה אלרגית. אם אין, ממשיכים הלאה.", options: [
+      { id: "anesth", label: "חומרי הרדמה (לידוקאין ודומיו)", policy: "note" },
+      { id: "ink", label: "דיו קעקוע (גרד או בליטה בקעקוע)", policy: "doc" },
+      { id: "latex", label: "לטקס", policy: "note" },
+      { id: "aspirin", label: "אספירין" },
+      { id: "hydrocort", label: "הידרוקורטיזון" },
+      { id: "hydroq", label: "הידרוקווינון או קרמים להבהרה" },
+      { id: "aloe", label: "אלוורה" },
+      { id: "food", label: "מזון" },
+      { id: "other", label: "אחר" }
+    ]},
+
+    { id: "meds", type: "yesno", title: "תרופות, תוספים וטיפוחים",
+      sub: "חשוב לרשום את החומר הפעיל שכתוב על האריזה, לא רק את השם המסחרי.", items: [
+      { id: "m_antibiotics", q: "אנטיביוטיקה עכשיו או בחודש האחרון", hint: "דוקסיציקלין, מינוציקלין, ציפרופלוקסצין, רספרים", short: "אנטיביוטיקה", detail: "שם, מתי מסתיים", policy: "wait" },
+      { id: "m_isotretinoin", q: "רואקוטן (איזוטרטינואין) בשנה האחרונה, בכדורים או במשחה", short: "איזוטרטינואין", detail: "מתי הפסקת", policy: "wait" },
+      { id: "m_anticoag", q: "מדללי דם", hint: "קומדין, אליקוויס, קסרלטו, פלביקס, אספירין", short: "מדללי דם", policy: "doc" },
+      { id: "m_heart", q: "תרופות ללב או ללחץ דם", hint: "כולל אמיודרון (פרוקור) ומשתנים", short: "תרופות לב או לחץ דם", policy: "doc" },
+      { id: "m_steroids", q: "סטרואידים בכדורים או בזריקה", short: "סטרואידים", policy: "doc" },
+      { id: "m_immuno", q: "תרופות ביולוגיות, מתוטרקסט או מדכאי חיסון", short: "מדכאי חיסון", policy: "doc" },
+      { id: "m_painkillers", q: "משככי כאבים או נוגדי דלקת באופן קבוע", hint: "נפרוקסן, פירוקסיקם, איבופרופן", policy: "note" },
+      { id: "m_psych", q: "תרופות פסיכיאטריות, לאיזון מצב רוח או נגד פרכוסים", policy: "note" },
+      { id: "m_diabetes", q: "תרופות לסוכרת או אינסולין", policy: "note" },
+      { id: "m_hormones", q: "גלולות למניעת הריון או טיפול הורמונלי", policy: "note" },
+      { id: "m_pdt", q: "טיפול פוטודינמי (PDT) או פוטותרפיה (PUVA) בשלושת החודשים האחרונים", hint: "כולל זריקת Visudyne לעיניים", short: "טיפול פוטודינמי", policy: "doc" },
+      { id: "m_hypericum", q: "היפריקום (St. John's Wort)", short: "היפריקום", policy: "wait" },
+      { id: "m_supplements", q: "תוספים או צמחי מרפא באופן קבוע", hint: "אומגה 3, גינקו, ויטמין E, שום", policy: "note" },
+      { id: "m_topical", q: "רטינול, רטין־A או חומצות על אזור הקעקוע", short: "רטינואידים על האזור", policyText: "נבקש להפסיק כשבוע לפני הטיפול.", policy: "wait" },
+      { id: "m_changed", q: "התחלת תרופה חדשה או שינית מינון בחודש האחרון", policy: "note" }
+    ], extra: [
+      { type: "textarea", id: "meds_list", label: "רשימת כל התרופות והתוספים שאת/ה נוטל/ת", placeholder: "שם התרופה, חומר פעיל, מינון" },
+      { type: "photos", id: "meds_photos", label: "אפשר לצרף צילום של אריזות התרופות (לא חובה)" }
+    ]},
+
+    { id: "skin", type: "yesno", title: "עור, שמש וטיפולים קודמים", items: [
+      { id: "s_laser", q: "עברת בעבר טיפולי לייזר או אור (IPL)?", detail: "האם היו כוויה, צלקת או שינוי צבע", policy: "note" },
+      { id: "s_tan", q: "השתזפת או נחשפת לשמש בחודש האחרון עד ששינה את צבע העור", short: "שיזוף לאחרונה", policy: "wait" },
+      { id: "s_selftan", q: "שיזוף עצמי או מיטת שיזוף בחודש האחרון", short: "שיזוף עצמי", policy: "wait" },
+      { id: "s_outdoor", q: "את/ה עובד/ת בחוץ, בשמש?", policy: "note" },
+      { id: "s_pigment", q: "כתמים כהים או בהירים בעור, או סימני פציעה באזור", policy: "note" },
+      { id: "s_fillers", q: "הזרקות מילוי באזור הטיפול", policy: "note" }
+    ]},
+
+    { id: "pregnancy", type: "yesno", title: "הריון, הנקה ופוריות", sub: "אם לא רלוונטי לך, מסמנים לא.", items: [
+      { id: "p_pregnant", q: "הריון", short: "הריון", policyText: "בהריון לא מבצעים הסרה בלייזר. נחזור לזה אחרי.", policy: "wait" },
+      { id: "p_nursing", q: "הנקה", short: "הנקה", policy: "wait" },
+      { id: "p_fertility", q: "טיפולי פוריות", policy: "note" }
+    ]}
+  ],
+
+  declaration: [
+    "מסרתי מידע מלא ונכון על מצבי הבריאותי, התרופות והתוספים שאני נוטל/ת. ידוע לי שהסתרת מידע עלולה לגרום לפגיעה בעור.",
+    "ידוע לי שבמקרים שסומנו, הטיפול מותנה באישור רופא בכתב. לא אפסיק ולא אשנה תרופה בלי הוראת הרופא.",
+    "אעדכן לפני כל טיפול על כל שינוי בבריאות או בתרופות.",
+    "הוסבר לי שאחרי הטיפול צפויים אדמומיות, נפיחות, שלפוחיות וגלדים, ושבמקרים נדירים ייתכנו שינויי צבע, צלקת או תגובה אלרגית לחומרי ההרדמה או למשחות, גם בלי אלרגיה ידועה.",
+    "אגיע לטיפול ללא השפעת אלכוהול או סמים."
+  ],
+  agreements: [
+    "קראתי ואני מאשר/ת את ההצהרה.",
+    "אני מסכים/ה שהמידע הרפואי שמסרתי יישמר בתיק הלקוח שלי ב-Pardo Ink Art לצורך הטיפול בלבד, ולא יועבר לאף גורם אחר."
+  ]
+};
+</script>
+<script src="config.js"></script>
+<script src="form-core.js"></script>
+</body>
+</html>
